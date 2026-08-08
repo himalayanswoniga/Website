@@ -1,0 +1,15 @@
+@import './styles/legacy.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 0; }
+
+/* Shared admin form field style, referenced as className="input" across admin forms. */
+@layer components {
+  .input {
+    @apply w-full border border-forest/15 px-3 py-2.5 text-sm text-text outline-none transition focus:border-forest-mid;
+  }
+}
