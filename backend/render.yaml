@@ -6,11 +6,16 @@ services:
     rootDir: backend
     buildCommand: npm install
     startCommand: npm start
+    # Lets Render restart the service if the API stops answering, and gives uptime
+    # pingers a cheap endpoint to keep the free instance from sleeping.
+    healthCheckPath: /health
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 5000
+      # PORT is injected by Render; server.js reads process.env.PORT, so pinning it here
+      # only risks binding to a port the platform is not routing to.
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
@@ -23,5 +28,7 @@ services:
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
+      # Comma-separated site origins allowed to call this API, e.g.
+      # https://himalayanswonigaharvest.com,https://www.himalayanswonigaharvest.com
       - key: CLIENT_ORIGINS
         sync: false

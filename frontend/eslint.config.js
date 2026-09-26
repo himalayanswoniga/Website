@@ -15,4 +15,9 @@ export default [
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
+  {
+    // Build-time config files run under Node, not in the browser.
+    files: ['*.config.js'],
+    languageOptions: { globals: { process: 'readonly' } },
+  },
 ];

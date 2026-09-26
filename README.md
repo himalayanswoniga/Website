@@ -89,10 +89,12 @@ npm run dev                 # http://localhost:5000
 
 # 2. Frontend (in a second terminal)
 cd frontend
-cp .env.example .env        # VITE_API_BASE_URL=http://localhost:5000/api/v1
 npm install
-npm run dev                 # http://localhost:5173
+npm run dev                 # http://localhost:5173 — no .env needed
 ```
+
+The frontend needs no `.env` for local work: it calls the relative `/api/v1`, and Vite's dev server
+proxies that to `http://localhost:5000` (override with `DEV_API_PROXY` if your API runs elsewhere).
 
 Visit `http://localhost:5173` for the public site and `http://localhost:5173/admin/login` for the
 admin panel, using the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `backend/.env` before seeding.
@@ -116,12 +118,19 @@ admin panel, using the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `backend/.env
 
 | Variable | Purpose |
 |---|---|
-| `VITE_API_BASE_URL` | Base URL of the backend API, **including** `/api/v1` |
+| `VITE_API_BASE_URL` | Base URL of the backend API, **including** `/api/v1`. Unset locally; **required** for any deployed build. |
+| `DEV_API_PROXY` | Dev-server proxy target, default `http://localhost:5000`. Local only. |
 
 **Local vs. Netlify env vars:** `frontend/.env` is only read by Vite during local `npm run dev` /
-`npm run build`. It is never deployed. On Netlify, set the same variable (`VITE_API_BASE_URL`, pointed
-at your Render URL + `/api/v1`) under **Site settings → Environment variables**, then trigger a deploy —
-Vite bakes it into the build at build time, so changing it on Netlify always requires a redeploy.
+`npm run build`. It is never deployed. On Netlify, set `VITE_API_BASE_URL` (your Render URL +
+`/api/v1`) under **Site settings → Environment variables**, then trigger a deploy — Vite bakes the
+value into the bundle at build time, so changing it on Netlify always requires a redeploy.
+
+**The build refuses to ship an unreachable API URL.** `vite build` fails unless `VITE_API_BASE_URL`
+is an `https://` URL ending in `/api/v1`. This exists because the value is inlined at build time: with
+it unset, the old fallback quietly produced a production bundle that called `http://localhost:5000`,
+so every visitor got `Network Error`. To build against a local API on purpose, use
+`ALLOW_LOCAL_API_BUILD=1 npm run build`.
 
 ## Seeding the Database
 
@@ -201,16 +210,35 @@ minutes) to keep it warm during business hours.
 3. SPA fallback for React Router is handled two ways (belt-and-suspenders): the `[[redirects]]` rule
    in `netlify.toml` and `frontend/public/_redirects`. Either alone is sufficient; both are included.
 4. Set `VITE_API_BASE_URL` under **Site settings → Environment variables** to your Render URL +
-   `/api/v1`, then trigger a deploy.
+   `/api/v1`, then **Clear cache and deploy site**. The build fails with an explanatory error if this
+   is missing, http-only, or pointed at localhost — that check is the safety net for this exact step.
 5. **Production branch:** `main`. Netlify's deploy previews work automatically for pull requests once
    the site is linked to the repo — no extra config needed beyond the `[context.deploy-preview]` block
    already in `netlify.toml`.
 
 ### CORS
 
-`CLIENT_ORIGINS` on the backend must list your exact Netlify URL (and `http://localhost:5173` for
-local dev). Update and redeploy the backend whenever the Netlify domain changes (e.g. after attaching
-a custom domain).
+`CLIENT_ORIGINS` on the backend must list every origin the site is served from — the custom domain,
+its `www` variant if you use one, the `*.netlify.app` URL, and `http://localhost:5173` for local dev:
+
+```
+CLIENT_ORIGINS=https://himalayanswonigaharvest.com,https://www.himalayanswonigaharvest.com,http://localhost:5173
+```
+
+Trailing slashes and casing are normalised, so only the scheme and host have to match. An origin that
+is not listed gets a `403` with the offending origin named in the message. Redeploy the backend
+whenever the domain changes.
+
+### Deployment checklist
+
+Work through these in order — steps 1-3 must be done before step 4 produces a working site:
+
+1. Render service is live: `curl https://<service>.onrender.com/health` returns `{"success":true,...}`.
+2. `npm run seed` has been run once against the production `MONGO_URI`. Without it the homepage has no
+   settings document to render and stays on the error state even with a healthy API.
+3. `CLIENT_ORIGINS` on Render lists the production domain(s).
+4. `VITE_API_BASE_URL` is set on Netlify and the site has been redeployed **with the cache cleared**.
+5. Open the site and confirm the network tab shows requests to your Render host, not `localhost`.
 
 ## Security Notes
 
