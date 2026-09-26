@@ -85,21 +85,25 @@ backend/
 ## Local Setup
 
 ```bash
-# 1. Backend
-cd backend
-cp .env.example .env        # fill in MONGO_URI, JWT_SECRET, Cloudinary keys — see below
-npm install
-npm run seed                # populates the DB with the original site's content + one admin user
-npm run dev                 # http://localhost:5000
-
-# 2. Frontend (in a second terminal)
-cd frontend
-npm install
-npm run dev                 # http://localhost:5173 — no .env needed
+npm install     # root: installs the dev runner
+npm run dev     # API on :5000 and the site on http://localhost:5173
 ```
 
-The frontend needs no `.env` for local work: it calls the relative `/api/v1`, and Vite's dev server
-proxies that to `http://localhost:5000` (override with `DEV_API_PROXY` if your API runs elsewhere).
+That is the whole setup. With no `MONGO_URI` configured, the API serves the built-in seed content,
+so the storefront works immediately — the same thing a Netlify deploy does before a database is
+attached. The frontend needs no `.env`: it calls the relative `/api/v1`, and Vite's dev server
+proxies that to the API (override with `DEV_API_PROXY` if it runs elsewhere).
+
+To work against a real database and unlock the admin panel:
+
+```bash
+cd backend
+cp .env.example .env        # fill in MONGO_URI, JWT_SECRET, Cloudinary keys — see below
+npm run seed                # loads the original site's content + the first admin user
+cd .. && npm run dev        # now reports [development, database]
+```
+
+Run the two halves separately with `npm run dev:api` and `npm run dev:web` if you prefer.
 
 Visit `http://localhost:5173` for the public site and `http://localhost:5173/admin/login` for the
 admin panel, using the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `backend/.env` before seeding.

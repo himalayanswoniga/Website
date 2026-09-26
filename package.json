@@ -9,7 +9,8 @@
     "test": "npm --prefix backend test && npm --prefix frontend test",
     "dev:api": "npm --prefix backend run dev",
     "dev:web": "npm --prefix frontend run dev",
-    "seed": "npm --prefix backend run seed"
+    "seed": "npm --prefix backend run seed",
+    "dev": "node scripts/dev.mjs"
   },
   "dependencies": {
     "serverless-http": "^3.2.0"

@@ -25,10 +25,9 @@ function clientKey(req) {
 const base = {
   standardHeaders: true,
   legacyHeaders: false,
+  // Supplying our own key also bypasses the library's default req.ip lookup, which is
+  // what raised ERR_ERL_UNDEFINED_IP_ADDRESS in a serverless invocation.
   keyGenerator: clientKey,
-  // We supply our own IPv6-aware key above; without this the library warns that a custom
-  // keyGenerator may not be handling IPv6 correctly.
-  validate: { keyGeneratorIpFallback: false },
 };
 
 export const apiLimiter = rateLimit({
