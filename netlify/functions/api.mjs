@@ -19,8 +19,8 @@ if (!usingDatabase) {
 }
 
 const app = usingDatabase
-  ? createApp({ dataSource: 'database' })
-  : createApp({ router: seedContentRouter, dataSource: 'seed' });
+  ? createApp({ dataSource: 'database', trustProxy: true })
+  : createApp({ router: seedContentRouter, dataSource: 'seed', trustProxy: true });
 
 const handle = serverless(app);
 

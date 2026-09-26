@@ -17,13 +17,18 @@ const normalizeOrigin = (value) => value.trim().toLowerCase().replace(/\/+$/, ''
  * CORS, logging, error handling — serves both the real database-backed routes and
  * the read-only seed content router used before MongoDB is configured.
  */
-export function createApp({ router = apiRoutes, dataSource = 'database' } = {}) {
+export function createApp({
+  router = apiRoutes,
+  dataSource = 'database',
+  trustProxy = process.env.NODE_ENV === 'production',
+} = {}) {
   const app = express();
 
   // Render, Netlify and any other managed host terminate TLS in front of us, so without
-  // this every request looks like it came from the proxy: req.ip collapses to a single
-  // address and the rate limiters below would throttle all visitors as one client.
-  if (process.env.NODE_ENV === 'production') {
+  // this every request looks like it came from the proxy and req.ip collapses to a single
+  // address. Serverless callers pass trustProxy explicitly, because NODE_ENV is not
+  // reliably 'production' at function runtime.
+  if (trustProxy) {
     app.set('trust proxy', 1);
   }
 

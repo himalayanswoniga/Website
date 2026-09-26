@@ -74,4 +74,23 @@ describe('Netlify function routing', () => {
     const res = await invoke('/.netlify/functions/api/health');
     expect(res.headers['x-data-source']).toBe('seed');
   });
+
+  // A serverless invocation has no socket, so req.ip is undefined and the rate limiter
+  // would either throw ERR_ERL_UNDEFINED_IP_ADDRESS or put every visitor in one bucket.
+  it('rate-limits per client address, not per function instance', async () => {
+    const forClient = (ip) =>
+      invoke('/.netlify/functions/api/api/v1/settings', { headers: { 'x-nf-client-connection-ip': ip } });
+
+    const first = await forClient('203.0.113.9');
+    const second = await forClient('203.0.113.9');
+    const other = await forClient('198.51.100.4');
+
+    expect(Number(second.headers['ratelimit-remaining'])).toBe(
+      Number(first.headers['ratelimit-remaining']) - 1
+    );
+    // A different visitor must not inherit the first one's spent budget.
+    expect(Number(other.headers['ratelimit-remaining'])).toBeGreaterThan(
+      Number(second.headers['ratelimit-remaining'])
+    );
+  });
 });
