@@ -1,0 +1,2100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Himalayan Swoniga Harvest — Pure Mountain Spices from Nepal</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --forest: #1b3a28;
+        --forest-mid: #2a5c3f;
+        --forest-light: #3d7a56;
+        --sage: #7a9e7e;
+        --cream: #f5f1ea;
+        --cream2: #ede8de;
+        --parchment: #e8dfc8;
+        --gold: #b8943f;
+        --gold-light: #d4b060;
+        --charcoal: #1a1a18;
+        --text: #2c3b2e;
+        --text-muted: #6b7d6e;
+        --white: #ffffff;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--cream);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        height: 80px;
+        background: rgba(245, 241, 234, 0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(27, 58, 40, 0.1);
+        transition: box-shadow 0.3s;
+      }
+      .navbar.scrolled {
+        box-shadow: 0 2px 24px rgba(27, 58, 40, 0.1);
+      }
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+      }
+      .navbar-logo img {
+        height: 100px;
+        width: auto;
+        display: block;
+        margin: -12px 0;
+      }
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .navbar-nav a {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--forest);
+        transition: color 0.2s;
+      }
+      .navbar-nav a:hover {
+        color: var(--gold);
+      }
+      .nav-btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 0.55rem 1.4rem;
+        transition: background 0.2s !important;
+      }
+      .nav-btn:hover {
+        background: var(--forest-mid) !important;
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--forest);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--cream);
+        z-index: 998;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+      }
+      .mobile-menu.open {
+        display: flex;
+      }
+      .mobile-menu a {
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--forest);
+        font-family: "Cormorant Garamond", serif;
+      }
+      .mobile-menu a:hover {
+        color: var(--gold);
+      }
+      .mobile-menu .m-btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 0.9rem 2.5rem;
+        margin-top: 1rem;
+      }
+      .mobile-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+        color: var(--forest);
+        line-height: 1;
+      }
+
+      /* HERO - full width, no product image */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+        padding-top: 80px;
+      }
+      .hero-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 660px;
+        padding: 4rem 0;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 2rem;
+      }
+      .hero-tag::before,
+      .hero-tag::after {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: var(--gold);
+      }
+      .hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3.5rem, 6vw, 5.5rem);
+        font-weight: 600;
+        line-height: 1.05;
+        color: var(--forest);
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.015em;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--forest-mid);
+      }
+      .hero-desc {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        line-height: 1.9;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+        max-width: 500px;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 3rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid rgba(27, 58, 40, 0.15);
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--forest);
+        display: block;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-top: 4px;
+        display: block;
+      }
+
+      /* right side decorative panel */
+      .hero-deco {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 42%;
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(
+          135deg,
+          rgba(27, 58, 40, 0.06) 0%,
+          rgba(184, 148, 63, 0.05) 100%
+        );
+        border-left: 1px solid rgba(27, 58, 40, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 6rem 3rem;
+      }
+      .deco-icon {
+        font-size: 4rem;
+        opacity: 0.15;
+      }
+      .deco-line {
+        width: 1px;
+        height: 80px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+      .deco-words {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .deco-word {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(27, 58, 40, 0.18);
+        writing-mode: vertical-rl;
+      }
+
+      /* BUTTONS */
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 0.73rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.9rem 2.2rem;
+        transition: all 0.25s;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+      .btn-dark {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      .btn-dark:hover {
+        background: var(--forest-mid);
+        transform: translateY(-2px);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--forest);
+        border: 1.5px solid var(--forest);
+      }
+      .btn-outline:hover {
+        background: var(--forest);
+        color: var(--cream);
+        transform: translateY(-2px);
+      }
+
+      /* MARQUEE */
+      .marquee-strip {
+        background: var(--forest);
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 1rem 0;
+      }
+      .marquee-inner {
+        display: inline-flex;
+        animation: marquee 24s linear infinite;
+      }
+      .marquee-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 3rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(245, 241, 234, 0.7);
+      }
+      .marquee-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--gold);
+        flex-shrink: 0;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* SECTION COMMONS */
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 3.5vw, 3.2rem);
+        font-weight: 600;
+        color: var(--forest);
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+      }
+      .section-title em {
+        font-style: italic;
+      }
+      .section-body {
+        font-size: 0.975rem;
+        color: var(--text-muted);
+        line-height: 1.9;
+        font-weight: 300;
+      }
+      .rule {
+        width: 48px;
+        height: 2px;
+        background: var(--gold);
+        margin: 1.25rem 0;
+      }
+      .rule.center {
+        margin: 1.25rem auto;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      /* ABOUT - image ONLY here */
+      .about-section {
+        padding: 8rem 5%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8rem;
+        align-items: center;
+      }
+      .about-visual {
+        position: relative;
+      }
+      .about-frame {
+        position: relative;
+        background: var(--parchment);
+        padding: 1.5rem;
+      }
+      .about-frame::before {
+        content: "";
+        position: absolute;
+        top: -14px;
+        left: -14px;
+        right: 14px;
+        bottom: 14px;
+        border: 1.5px solid var(--gold);
+        z-index: 0;
+      }
+      .about-frame img {
+        width: 100%;
+        display: block;
+        position: relative;
+        z-index: 1;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 2px;
+      }
+      .about-badge {
+        position: absolute;
+        bottom: -2.5rem;
+        right: -2.5rem;
+        z-index: 2;
+        width: 108px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--forest);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--gold);
+        color: var(--cream);
+        text-align: center;
+        box-shadow: 0 12px 32px rgba(27, 58, 40, 0.3);
+      }
+      .about-badge .b-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.7rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .about-badge .b-sub {
+        font-size: 0.5rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-top: 3px;
+      }
+      .about-list {
+        list-style: none;
+        margin: 1.5rem 0 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .about-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 300;
+        line-height: 1.6;
+      }
+      .about-list li::before {
+        content: "✦";
+        color: var(--gold);
+        font-size: 0.55rem;
+        flex-shrink: 0;
+        margin-top: 5px;
+      }
+
+      /* PRODUCTS */
+      .products-section {
+        background: var(--forest);
+        padding: 8rem 5%;
+      }
+      .products-section .eyebrow {
+        color: rgba(184, 148, 63, 0.9);
+      }
+      .products-section .section-title {
+        color: var(--cream);
+      }
+      .products-section .section-body {
+        color: rgba(245, 241, 234, 0.6);
+      }
+      .products-section .rule {
+        background: var(--gold);
+      }
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1.5px solid rgba(255, 255, 255, 0.07);
+        margin-top: 3.5rem;
+      }
+      .prod-card {
+        background: var(--forest);
+        padding: 2.5rem 2rem;
+        transition: background 0.3s;
+        position: relative;
+      }
+      .prod-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .prod-num {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+        margin-bottom: 1.25rem;
+        font-weight: 600;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .prod-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .prod-card h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--cream);
+        margin-bottom: 0.65rem;
+        line-height: 1.2;
+      }
+      .prod-card p {
+        font-size: 0.83rem;
+        color: rgba(245, 241, 234, 0.5);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+      .prod-tag {
+        display: inline-block;
+        margin-top: 1.25rem;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid rgba(184, 148, 63, 0.35);
+        padding: 0.28rem 0.65rem;
+      }
+
+      /* SHOP — featured & popular product lists */
+      .shop-section {
+        padding: 8rem 5%;
+        background: var(--cream);
+      }
+      .shop-section.alt {
+        background: var(--cream2);
+      }
+      .shop-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+      .shop-head .section-title {
+        margin-bottom: 0;
+      }
+      .shop-head .rule {
+        margin-bottom: 0;
+      }
+      .shop-link {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--forest);
+        text-decoration: none;
+        border-bottom: 1.5px solid var(--gold);
+        padding-bottom: 4px;
+        transition: color 0.2s;
+      }
+      .shop-link:hover {
+        color: var(--gold);
+      }
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.75rem;
+      }
+      .pc {
+        background: var(--white);
+        border: 1px solid rgba(27, 58, 40, 0.08);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .pc:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(27, 58, 40, 0.1);
+      }
+      .pc-media {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        background: linear-gradient(160deg, var(--cream) 0%, var(--parchment) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .pc-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .pc:hover .pc-media img,
+      .pc:hover .pouch {
+        transform: scale(1.05);
+      }
+      /* kraft pouch illustration used until real product photos are added */
+      .pouch {
+        width: 52%;
+        aspect-ratio: 3 / 4;
+        background: linear-gradient(135deg, #c9a878 0%, #b8925e 55%, #a78250 100%);
+        border-radius: 6px 6px 10px 10px;
+        position: relative;
+        box-shadow:
+          0 14px 28px rgba(27, 58, 40, 0.18),
+          inset 0 10px 0 rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 18% 8% 10%;
+        transition: transform 0.5s;
+      }
+      .pouch::before {
+        content: "";
+        position: absolute;
+        top: 9%;
+        left: 8%;
+        right: 8%;
+        height: 2px;
+        background: rgba(0, 0, 0, 0.12);
+      }
+      .pouch-label {
+        width: 100%;
+        background: var(--forest);
+        color: var(--cream);
+        text-align: center;
+        padding: 0.7rem 0.3rem 0.6rem;
+        border-top: 2px solid var(--gold);
+      }
+      .pouch-label .pl-icon {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+      }
+      .pouch-label .pl-name {
+        display: block;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        line-height: 1.1;
+      }
+      .pouch-label .pl-sub {
+        display: block;
+        font-size: 0.42rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-top: 0.3rem;
+      }
+      .pc-badge {
+        position: absolute;
+        top: 0.9rem;
+        left: 0.9rem;
+        z-index: 2;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.6rem;
+        background: var(--forest);
+        color: var(--cream);
+      }
+      .pc-badge.sale {
+        background: var(--gold);
+        color: var(--white);
+      }
+      .pc-badge.oos {
+        background: var(--charcoal);
+      }
+      .pc-body {
+        padding: 1.25rem 1.25rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .pc-cat {
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--sage);
+        margin-bottom: 0.4rem;
+      }
+      .pc-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--forest);
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+      }
+      .pc-name a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .pc-name a:hover {
+        color: var(--gold);
+      }
+      .pc-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-bottom: 0.9rem;
+      }
+      .pc-stars {
+        color: var(--gold);
+        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+      }
+      .pc-spacer {
+        flex: 1;
+        min-height: 0.25rem;
+      }
+      .pc-price {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.2rem 0.6rem;
+        margin-top: auto;
+        margin-bottom: 1rem;
+      }
+      .pc-now,
+      .pc-was {
+        white-space: nowrap;
+      }
+      .pc-now {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--forest);
+      }
+      .pc-was {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-decoration: line-through;
+      }
+      .pc-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem 1rem;
+      }
+      .pc-btn:disabled {
+        background: var(--cream2);
+        color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
+      }
+      .pc.is-oos .pc-media {
+        filter: grayscale(0.6);
+        opacity: 0.75;
+      }
+
+      /* Featured: first card spans two rows as a hero product */
+      .featured-grid .pc.hero-pc {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .featured-grid .pc.hero-pc .pc-media {
+        aspect-ratio: auto;
+        flex: 1;
+        min-height: 320px;
+      }
+      .featured-grid .pc.hero-pc .pc-body {
+        flex: none;
+      }
+      .featured-grid .pc.hero-pc .pc-name {
+        font-size: 1.8rem;
+      }
+
+      .pc-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-weight: 300;
+        margin-bottom: 1rem;
+      }
+      @media (max-width: 1024px) {
+        .shop-grid,
+        .featured-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .featured-grid .pc.hero-pc {
+          grid-row: auto;
+        }
+      }
+      @media (max-width: 640px) {
+        .shop-section {
+          padding: 5rem 5%;
+        }
+        .shop-grid,
+        .featured-grid {
+          gap: 1rem;
+        }
+        .pc-body {
+          padding: 1rem 0.9rem 1.1rem;
+        }
+        .pc-name {
+          font-size: 1.05rem;
+        }
+        .pc-btn {
+          padding: 0.75rem 0.5rem;
+          font-size: 0.65rem;
+        }
+        .featured-grid .pc.hero-pc .pc-media {
+          min-height: 240px;
+        }
+        .pouch {
+          width: 60%;
+          padding: 16% 6% 8%;
+        }
+        .pouch-label .pl-name {
+          font-size: 0.7rem;
+        }
+        .pouch-label .pl-sub {
+          display: none;
+        }
+      }
+      @media (max-width: 360px) {
+        .shop-grid,
+        .featured-grid {
+          grid-template-columns: 1fr;
+        }
+        .featured-grid .pc.hero-pc {
+          grid-column: auto;
+        }
+      }
+
+      /* PACKAGING - no product image, use icon/graphic approach */
+      .packaging-section {
+        padding: 8rem 5%;
+        background: var(--cream2);
+      }
+      .packaging-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .packaging-header {
+        text-align: center;
+        margin-bottom: 5rem;
+      }
+      .pkg-features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+      .pkg-feat-card {
+        background: var(--cream);
+        padding: 2.5rem 2rem;
+        border-top: 2px solid var(--gold);
+        text-align: center;
+      }
+      .pkg-feat-icon {
+        font-size: 2.2rem;
+        margin-bottom: 1.25rem;
+        display: block;
+      }
+      .pkg-feat-card h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        color: var(--forest);
+        margin-bottom: 0.65rem;
+        font-weight: 600;
+      }
+      .pkg-feat-card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+      .pkg-cta-band {
+        background: var(--forest);
+        padding: 3rem 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .pkg-cta-band h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.8rem;
+        color: var(--cream);
+        font-weight: 600;
+      }
+      .pkg-cta-band p {
+        font-size: 0.85rem;
+        color: rgba(245, 241, 234, 0.6);
+        margin-top: 0.4rem;
+        font-weight: 300;
+      }
+
+      /* PROCESS */
+      .process-section {
+        padding: 8rem 5%;
+        background: var(--cream);
+      }
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.5rem;
+        margin-top: 4rem;
+      }
+      .process-step {
+        text-align: center;
+        position: relative;
+      }
+      .process-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -1.25rem;
+        top: 2.8rem;
+        color: rgba(184, 148, 63, 0.4);
+        font-size: 1.2rem;
+        transform: translateY(-50%);
+      }
+      .step-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--cream2);
+        border: 2px solid rgba(184, 148, 63, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        font-size: 1.6rem;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .process-step:hover .step-circle {
+        border-color: var(--gold);
+        background: var(--parchment);
+      }
+      .step-num {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.5rem;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .process-step h4 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        color: var(--forest);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      .process-step p {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+
+      /* VALUES */
+      .values-section {
+        padding: 8rem 5%;
+        background: var(--parchment);
+      }
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 4rem;
+      }
+      .value-card {
+        padding: 2.5rem 2rem;
+        background: var(--cream);
+        border-top: 2px solid var(--gold);
+      }
+      .value-icon {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        display: block;
+      }
+      .value-card h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        color: var(--forest);
+        margin-bottom: 0.65rem;
+        font-weight: 600;
+      }
+      .value-card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+
+      /* TESTIMONIAL */
+      .testimonial-section {
+        padding: 6rem 5%;
+        background: var(--forest);
+        text-align: center;
+      }
+      .quote-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+        font-style: italic;
+        color: var(--cream);
+        max-width: 780px;
+        margin: 1.5rem auto;
+        line-height: 1.55;
+        font-weight: 400;
+      }
+      .quote-author {
+        font-size: 0.72rem;
+        color: var(--gold);
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      /* CONTACT */
+      .contact-section {
+        padding: 8rem 5%;
+        background: var(--cream);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 8rem;
+        align-items: start;
+        margin-top: 4rem;
+      }
+      .ci-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        margin-top: 2rem;
+      }
+      .ci-item {
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+      }
+      .ci-box {
+        width: 46px;
+        height: 46px;
+        flex-shrink: 0;
+        background: var(--cream2);
+        border: 1px solid rgba(184, 148, 63, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+      .ci-label {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 3px;
+      }
+      .ci-val {
+        font-size: 0.88rem;
+        color: var(--text);
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .contact-form input,
+      .contact-form textarea,
+      .contact-form select {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border: 1.5px solid rgba(27, 58, 40, 0.15);
+        background: var(--white);
+        font-family: "Inter", sans-serif;
+        font-size: 0.88rem;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.2s;
+        border-radius: 0;
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus,
+      .contact-form select:focus {
+        border-color: var(--forest-mid);
+      }
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: #bcc4be;
+        font-size: 0.85rem;
+      }
+      .contact-form select {
+        color: #bcc4be;
+        -webkit-appearance: none;
+      }
+      .contact-form select.filled {
+        color: var(--text);
+      }
+      .contact-form textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      /* INSTAGRAM ORDER PANEL (replaces the enquiry form for now) */
+      .ci-val a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .ci-val a:hover {
+        color: var(--gold);
+      }
+      .ig-panel {
+        background: var(--forest);
+        color: var(--cream);
+        padding: 3.5rem 3rem;
+        text-align: center;
+        border-top: 3px solid var(--gold);
+      }
+      .ig-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(184, 148, 63, 0.6);
+        color: var(--gold-light);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+      .ig-panel h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .ig-panel p {
+        font-size: 0.9rem;
+        color: rgba(245, 241, 234, 0.7);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 420px;
+        margin: 0 auto 1.5rem;
+      }
+      .ig-handle {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--gold-light);
+        text-decoration: none;
+        margin-bottom: 1.75rem;
+        word-break: break-all;
+      }
+      .ig-handle:hover {
+        color: var(--cream);
+      }
+      .ig-panel .btn-dark {
+        background: var(--gold);
+        color: var(--white);
+      }
+      .ig-panel .btn-dark:hover {
+        background: var(--gold-light);
+      }
+      @media (max-width: 640px) {
+        .ig-panel {
+          padding: 2.5rem 1.5rem;
+        }
+      }
+
+      /* FOOTER */
+      .footer {
+        background: var(--charcoal);
+        padding: 4.5rem 5% 2rem;
+      }
+      .footer-top {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+        gap: 4rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-brand img {
+        height: 40px;
+        margin-bottom: 1.25rem;
+        filter: brightness(0) invert(1);
+        opacity: 0.75;
+      }
+      .footer-brand p {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 260px;
+      }
+      .footer-col h4 {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.25rem;
+      }
+      .footer-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .footer-col ul li a {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+        font-weight: 300;
+      }
+      .footer-col ul li a:hover {
+        color: var(--gold);
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-bottom p {
+        font-size: 0.73rem;
+        color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        .hero-deco {
+          display: none;
+        }
+        .about-section,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .process-grid,
+        .values-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .pkg-features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-top {
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+        }
+      }
+      @media (max-width: 640px) {
+        .navbar-nav {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .hero {
+          padding-top: 80px !important;
+        }
+        .hero h1 {
+          font-size: 3rem;
+        }
+        .products-grid,
+        .pkg-features-grid {
+          grid-template-columns: 1fr;
+        }
+        .process-grid,
+        .values-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .hero-stats {
+          gap: 2rem;
+        }
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+        .pkg-cta-band {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <a href="#" class="navbar-logo">
+        <img
+          src="images/logo.png"
+          alt="Himalayan Swoniga Harvest"
+        />
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#packaging">Packaging</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#contact" class="nav-btn">Order Now</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" id="mobileClose">✕</button>
+      <a href="#about" onclick="closeMobile()">Our Story</a>
+      <a href="#products" onclick="closeMobile()">Products</a>
+      <a href="#shop" onclick="closeMobile()">Shop</a>
+      <a href="#packaging" onclick="closeMobile()">Packaging</a>
+      <a href="#process" onclick="closeMobile()">Process</a>
+      <a href="#values" onclick="closeMobile()">Values</a>
+      <a href="#contact" class="m-btn" onclick="closeMobile()">Order Now</a>
+    </div>
+
+    <!-- HERO — no product image, pure typography + canvas atmosphere -->
+    <section class="hero" id="home">
+      <canvas class="hero-canvas" id="heroBg"></canvas>
+      <div class="hero-content">
+        <p class="hero-tag">Kathmandu, Nepal · Est. 2026</p>
+        <h1>
+          Pure Spices<br />from the <em>Heart of<br />the Himalayas</em>
+        </h1>
+        <p class="hero-desc">
+          Sun-dried and machine-dried to perfection. Garlic, ginger, lapsi, amla and
+          more — sourced from Nepal's highland farms, ground pure without
+          additives or preservatives.
+        </p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-dark">Explore Products</a>
+          <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-num">100%</span
+            ><span class="stat-label">Natural</span>
+          </div>
+          <div>
+            <span class="stat-num">8+</span
+            ><span class="stat-label">Products</span>
+          </div>
+          <div>
+            <span class="stat-num">Zero</span
+            ><span class="stat-label">Additives</span>
+          </div>
+          <div>
+            <span class="stat-num">2026</span
+            ><span class="stat-label">Established</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-deco">
+        <span class="deco-icon">🌿</span>
+        <div class="deco-line"></div>
+        <div class="deco-words">
+          <span class="deco-word">Natural</span>
+          <span class="deco-word">Pure</span>
+          <span class="deco-word">Himalayan</span>
+        </div>
+        <div class="deco-line"></div>
+        <span class="deco-icon">🏔️</span>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-inner">
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Sun-Dried &amp; Machine-Dried</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>100% Natural</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Himalayan Sourced</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>No Preservatives</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Stone Ground</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Farmer Direct</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Est. 2026 · Kathmandu</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Sun-Dried &amp; Machine-Dried</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>100% Natural</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Himalayan Sourced</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>No Preservatives</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Stone Ground</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Farmer Direct</span
+        >
+        <span class="marquee-item"
+          ><span class="marquee-dot"></span>Est. 2026 · Kathmandu</span
+        >
+      </div>
+    </div>
+
+    <!-- ABOUT / OUR STORY — ONLY section with product image -->
+    <section class="about-section" id="about">
+      <div class="about-visual reveal">
+        <div class="about-frame">
+          <img src="images/products/lapsi_powder.jpg" alt="Lapsi Powder — Himalayan Swoniga Harvest" />
+          <div class="about-badge">
+            <span class="b-num">2026</span>
+            <span class="b-sub">Estd.</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2 class="section-title">
+          From Nepal's Highlands<br />to <em>Your Kitchen</em>
+        </h2>
+        <div class="rule"></div>
+        <p class="section-body">
+          Himalayan Swoniga Harvest was born from a deep respect for Nepal's
+          centuries-old farming traditions. We source garlic, ginger, lapsi, and
+          other highland crops directly from trusted local farmers — and process
+          them using both natural sun-drying and modern machine drying to
+          guarantee consistent quality year-round.
+        </p>
+        <ul class="about-list">
+          <li>Direct partnerships with highland farmers across Nepal</li>
+          <li>
+            Dual-process drying — sun-dried and machine-dried for year-round
+            consistency
+          </li>
+          <li>Fine-milled to preserve full flavour, aroma, and nutrition</li>
+          <li>Zero artificial additives, colours, or preservatives</li>
+        </ul>
+        <a href="#products" class="btn btn-dark">See Our Products</a>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products-section" id="products">
+      <div class="section-header reveal">
+        <span class="eyebrow">What We Offer</span>
+        <h2 class="section-title" style="color: var(--cream)">
+          Our Product Range
+        </h2>
+        <div class="rule center" style="background: var(--gold)"></div>
+        <p class="section-body">
+          Each product is harvested at peak season, carefully dried, and milled
+          in small batches — delivering full-spectrum flavour every time.
+        </p>
+      </div>
+      <div class="products-grid">
+        <div class="prod-card reveal">
+          <p class="prod-num">01</p>
+          <span class="prod-icon">🧄</span>
+          <h3>Garlic Powder</h3>
+          <p>
+            Intensely aromatic Himalayan garlic — dried and finely milled. No salt, no fillers, pure garlic.
+          </p>
+          <span class="prod-tag">Bestseller</span>
+        </div>
+        <div class="prod-card reveal">
+          <p class="prod-num">02</p>
+          <span class="prod-icon">🫚</span>
+          <h3>Ginger Powder</h3>
+          <p>
+            Warm, spicy highland ginger — dual-dried for consistent flavour. Perfect for cooking, tea and baking.
+          </p>
+          <span class="prod-tag">Available Now</span>
+        </div>
+        <div class="prod-card reveal">
+          <p class="prod-num">03</p>
+          <span class="prod-icon">🍑</span>
+          <h3>Lapsi Powder</h3>
+          <p>
+            Nepal's signature hog plum — naturally sour, dried and powdered. Rooted in tradition.
+          </p>
+          <span class="prod-tag">Signature</span>
+        </div>
+        <div class="prod-card reveal">
+          <p class="prod-num">04</p>
+          <span class="prod-icon">🌿</span>
+          <h3>Amla Powder</h3>
+          <p>
+            Tangy Indian gooseberry, de-seeded and finely milled — a traditional daily wellness staple.
+          </p>
+          <span class="prod-tag">New</span>
+        </div>
+        <div class="prod-card reveal">
+          <p class="prod-num">05</p>
+          <span class="prod-icon">🍊</span>
+          <h3>Beetroot &amp; Orange Powders</h3>
+          <p>
+            Vivid, naturally coloured powders for smoothies, baking and drinks — nothing added.
+          </p>
+          <span class="prod-tag">Natural Colour</span>
+        </div>
+        <div class="prod-card reveal">
+          <p class="prod-num">06</p>
+          <span class="prod-icon">🍎</span>
+          <h3>Dried Fruit Slices</h3>
+          <p>
+            Crisp apple rings and fragrant orange wheels, slow-dried with no added sugar.
+          </p>
+          <span class="prod-tag">Healthy Snack</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP — FEATURED PRODUCTS (cards are built from products.js) -->
+    <section class="shop-section" id="shop">
+      <div class="shop-head reveal">
+        <div>
+          <span class="eyebrow">Handpicked for You</span>
+          <h2 class="section-title">Featured <em>Products</em></h2>
+          <div class="rule"></div>
+        </div>
+        <a href="#popular" class="shop-link">View All Products →</a>
+      </div>
+      <div class="shop-grid featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <!-- SHOP — POPULAR PRODUCTS (cards are built from products.js) -->
+    <section class="shop-section alt" id="popular">
+      <div class="shop-head reveal">
+        <div>
+          <span class="eyebrow">Customer Favourites</span>
+          <h2 class="section-title">Popular <em>Products</em></h2>
+          <div class="rule"></div>
+        </div>
+        <a href="#contact" class="shop-link">Bulk Orders →</a>
+      </div>
+      <div class="shop-grid" id="popularGrid"></div>
+    </section>
+
+    <!-- PACKAGING — no product image, feature cards + CTA band -->
+    <section class="packaging-section" id="packaging">
+      <div class="packaging-inner">
+        <div class="packaging-header reveal">
+          <span class="eyebrow">Our Packaging</span>
+          <h2 class="section-title">Simple. <em>Honest.</em> Eco-Friendly.</h2>
+          <div class="rule center"></div>
+          <p class="section-body" style="max-width: 540px; margin: 0 auto">
+            Our kraft stand-up resealable pouches protect freshness while
+            staying environmentally responsible. Every pack is clearly labelled
+            — because transparency is part of what we sell.
+          </p>
+        </div>
+        <div class="pkg-features-grid">
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">♻️</span>
+            <h3>Eco-Friendly Kraft</h3>
+            <p>
+              Resealable stand-up pouches made from responsibly sourced kraft
+              paper — biodegradable and sustainable.
+            </p>
+          </div>
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">🔒</span>
+            <h3>Airtight Freshness</h3>
+            <p>
+              Zipper-lock seal keeps your spices fresh and aromatic for months
+              after opening.
+            </p>
+          </div>
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">🏷️</span>
+            <h3>Clear Labelling</h3>
+            <p>
+              Product name, tagline, ingredients, and contact printed clearly —
+              no hidden surprises inside.
+            </p>
+          </div>
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">🪟</span>
+            <h3>Transparent Window</h3>
+            <p>
+              A clear window lets you see the product inside before you open it
+              — full visual honesty.
+            </p>
+          </div>
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">📐</span>
+            <h3>Multiple Sizes</h3>
+            <p>
+              Available in retail and bulk pack sizes — suitable for household
+              use and wholesale supply.
+            </p>
+          </div>
+          <div class="pkg-feat-card reveal">
+            <span class="pkg-feat-icon">🎨</span>
+            <h3>Custom Branding</h3>
+            <p>
+              Custom labelling available for wholesale buyers and private label
+              requirements.
+            </p>
+          </div>
+        </div>
+        <div class="pkg-cta-band reveal">
+          <div>
+            <h3>Need bulk packaging?</h3>
+            <p>
+              We supply retailers, restaurants, and distributors across Nepal
+              and beyond.
+            </p>
+          </div>
+          <a
+            href="#contact"
+            class="btn"
+            style="background: var(--gold); color: var(--white); flex-shrink: 0"
+            >Enquire Now</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section" id="process">
+      <div class="section-header reveal">
+        <span class="eyebrow">How We Work</span>
+        <h2 class="section-title">From Farm to <em>Your Table</em></h2>
+        <div class="rule center"></div>
+        <p class="section-body" style="max-width: 520px; margin: 0 auto">
+          Every step carried out with care, transparency, and respect for the
+          natural ingredient.
+        </p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <div class="step-circle">🌱</div>
+          <p class="step-num">Step 01</p>
+          <h4>Highland Harvest</h4>
+          <p>
+            Crops harvested at peak freshness from our partner highland farms
+            across Nepal.
+          </p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-circle">☀️</div>
+          <p class="step-num">Step 02</p>
+          <h4>Dual Drying</h4>
+          <p>
+            Traditional sun-drying and modern machine drying — both methods,
+            best of both worlds.
+          </p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-circle">⚙️</div>
+          <p class="step-num">Step 03</p>
+          <h4>Fine Milling</h4>
+          <p>
+            Dried ingredients carefully milled into fine powder, preserving
+            aroma, colour, and nutrients.
+          </p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-circle">📦</div>
+          <p class="step-num">Step 04</p>
+          <h4>Sealed &amp; Shipped</h4>
+          <p>
+            Packed fresh into resealable kraft pouches — pure, clean, and ready
+            for your kitchen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values-section" id="values">
+      <div class="section-header reveal">
+        <span class="eyebrow">Why Choose Us</span>
+        <h2 class="section-title">Rooted in <em>Values</em></h2>
+        <div class="rule center"></div>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <span class="value-icon">🏔️</span>
+          <h3>Himalayan Origin</h3>
+          <p>
+            Every ingredient traced to specific highland farms in Nepal —
+            genuine provenance, every batch.
+          </p>
+        </div>
+        <div class="value-card reveal">
+          <span class="value-icon">🌿</span>
+          <h3>Chemical Free</h3>
+          <p>
+            No pesticides, no fumigants, no artificial treatment — we source
+            clean and process clean.
+          </p>
+        </div>
+        <div class="value-card reveal">
+          <span class="value-icon">🤝</span>
+          <h3>Farmer First</h3>
+          <p>
+            Fair prices paid directly to our farmers — no middlemen, supporting
+            rural livelihoods in Nepal.
+          </p>
+        </div>
+        <div class="value-card reveal">
+          <span class="value-icon">📋</span>
+          <h3>Full Transparency</h3>
+          <p>
+            What's on the label is all that's in the pack. No hidden additives,
+            no fine print surprises.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial-section">
+      <span class="eyebrow">What People Say</span>
+      <div
+        class="rule center"
+        style="margin: 1rem auto 2rem; background: var(--gold)"
+      ></div>
+      <p class="quote-text">
+        "The garlic powder from Himalayan Swoniga Harvest is unlike anything
+        I've used — intensely aromatic, pure, and clearly made with real care.
+        You can taste the difference immediately."
+      </p>
+      <p class="quote-author">— Early Customer, Kathmandu</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+      <div class="section-header reveal">
+        <span class="eyebrow">Get In Touch</span>
+        <h2 class="section-title">Let's Work <em>Together</em></h2>
+        <div class="rule center"></div>
+        <p class="section-body" style="max-width: 500px; margin: 0 auto">
+          Whether you're a retailer, restaurant, distributor, or home customer —
+          reach out for bulk orders, custom blends, or general enquiries.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Contact Information</span>
+          <h3 class="section-title" style="font-size: 1.9rem">
+            We'd love to<br /><em>hear from you.</em>
+          </h3>
+          <div class="rule"></div>
+          <div class="ci-list">
+            <div class="ci-item">
+              <div class="ci-box">📍</div>
+              <div>
+                <p class="ci-label">Location</p>
+                <p class="ci-val">Kathmandu, Nepal</p>
+              </div>
+            </div>
+            <!-- PHONE HIDDEN — remove the comment markers to show it again
+            <div class="ci-item">
+              <div class="ci-box">📞</div>
+              <div>
+                <p class="ci-label">Phone</p>
+                <p class="ci-val">+977 9802311111</p>
+              </div>
+            </div>
+            -->
+            <div class="ci-item">
+              <div class="ci-box">📸</div>
+              <div>
+                <p class="ci-label">Instagram</p>
+                <p class="ci-val">
+                  <a href="https://www.instagram.com/himalayanswonigaharvest/" target="_blank" rel="noopener">@himalayanswonigaharvest</a>
+                </p>
+              </div>
+            </div>
+            <!-- EMAIL HIDDEN — remove the comment markers to show it again
+            <div class="ci-item">
+              <div class="ci-box">📧</div>
+              <div>
+                <p class="ci-label">Email</p>
+                <p class="ci-val">info@himalayaswonigaharvest.com</p>
+              </div>
+            </div>
+            -->
+            <div class="ci-item">
+              <div class="ci-box">🌐</div>
+              <div>
+                <p class="ci-label">Website</p>
+                <p class="ci-val">himalayaswonigaharvest.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ENQUIRY FORM HIDDEN — remove the comment markers to show it again
+        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <input type="text" placeholder="Your Full Name" required />
+            <input type="email" placeholder="Email Address" required />
+          </div>
+          <input type="text" placeholder="Phone Number (optional)" />
+          <select onchange="this.classList.add('filled')">
+            <option value="" disabled selected>Type of Enquiry</option>
+            <option>Bulk / Wholesale Order</option>
+            <option>Retail Purchase</option>
+            <option>Custom Blend Request</option>
+            <option>Distribution Partnership</option>
+            <option>General Enquiry</option>
+          </select>
+          <textarea placeholder="Tell us about your requirements..."></textarea>
+          <button
+            type="submit"
+            class="btn btn-dark"
+            style="width: 100%; text-align: center"
+          >
+            Send Enquiry
+          </button>
+        </form>
+        -->
+        <div class="ig-panel reveal">
+          <span class="ig-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <h3>Order on Instagram</h3>
+          <p>
+            Send us a direct message with the product name, pack size and
+            quantity — we'll confirm your order, delivery and payment details.
+            Bulk and wholesale enquiries welcome.
+          </p>
+          <a class="ig-handle" href="https://www.instagram.com/himalayanswonigaharvest/" target="_blank" rel="noopener">@himalayanswonigaharvest</a>
+          <a class="btn btn-dark" href="https://ig.me/m/himalayanswonigaharvest" target="_blank" rel="noopener">Message Us on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img
+            src="images/logo.png"
+            alt="Himalayan Swoniga Harvest"
+          />
+          <p>
+            Pure Himalayan spice powders — sun-dried, machine-dried, and
+            fine-milled with zero additives. Est. 2026, Kathmandu, Nepal.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="product.html?id=garlic-powder">Garlic Powder</a></li>
+            <li><a href="product.html?id=ginger-powder">Ginger Powder</a></li>
+            <li><a href="product.html?id=lapsi-powder">Lapsi Powder</a></li>
+            <li><a href="product.html?id=amla-powder">Amla Powder</a></li>
+            <li><a href="product.html?id=apple-slices">Dried Fruit Slices</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#process">Our Process</a></li>
+            <li><a href="#packaging">Packaging</a></li>
+            <li><a href="#values">Our Values</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#contact">Get in Touch</a></li>
+            <li><a href="#contact">Bulk Orders</a></li>
+            <!-- EMAIL HIDDEN — remove the comment markers to show it again
+            <li>
+              <a href="mailto:info@himalayaswonigaharvest.com">Email Us</a>
+            </li>
+            -->
+            <li><a href="#">Facebook</a></li>
+            <li><a href="https://www.instagram.com/himalayanswonigaharvest/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2026 Himalayan Swoniga Harvest · Kathmandu, Nepal · All rights
+          reserved.
+        </p>
+        <p>Pure · Natural · Himalayan</p>
+      </div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script>
+      // Home page product sections — edit FEATURED / POPULAR in products.js
+      document.getElementById("featuredGrid").innerHTML = FEATURED.map((id, i) =>
+        productCard(id, { hero: i === 0 }),
+      ).join("");
+      document.getElementById("popularGrid").innerHTML = POPULAR.map((id) => productCard(id)).join("");
+      bindAddButtons();
+
+      // Mobile menu
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileClose = document.getElementById("mobileClose");
+      hamburger.addEventListener("click", () =>
+        mobileMenu.classList.add("open"),
+      );
+      mobileClose.addEventListener("click", () =>
+        mobileMenu.classList.remove("open"),
+      );
+      function closeMobile() {
+        mobileMenu.classList.remove("open");
+      }
+
+      // Navbar scroll shadow
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("navbar")
+          .classList.toggle("scrolled", window.scrollY > 20);
+      });
+
+      // Hero canvas — mountain silhouette with forest atmosphere
+      const canvas = document.getElementById("heroBg");
+      const ctx = canvas.getContext("2d");
+      function drawBg() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        const w = canvas.width,
+          h = canvas.height;
+        // base gradient — very subtle, cream-based
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0, "#eef3ee");
+        g.addColorStop(0.5, "#f5f1ea");
+        g.addColorStop(1, "#e8dfc8");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        // right panel tint
+        const rg = ctx.createLinearGradient(w * 0.55, 0, w, 0);
+        rg.addColorStop(0, "rgba(27,58,40,0)");
+        rg.addColorStop(1, "rgba(27,58,40,0.04)");
+        ctx.fillStyle = rg;
+        ctx.fillRect(0, 0, w, h);
+        // mountain silhouette bottom-right
+        ctx.beginPath();
+        ctx.moveTo(w * 0.4, h);
+        ctx.lineTo(w * 0.55, h * 0.55);
+        ctx.lineTo(w * 0.65, h * 0.7);
+        ctx.lineTo(w * 0.78, h * 0.38);
+        ctx.lineTo(w * 0.88, h * 0.58);
+        ctx.lineTo(w, h * 0.42);
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(27,58,40,0.045)";
+        ctx.fill();
+        // gold accent dots
+        for (let i = 0; i < 30; i++) {
+          ctx.beginPath();
+          ctx.arc(
+            w * 0.5 + Math.random() * w * 0.5,
+            Math.random() * h,
+            Math.random() * 1.2 + 0.3,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fillStyle = "rgba(184,148,63,0.07)";
+          ctx.fill();
+        }
+      }
+      drawBg();
+      window.addEventListener("resize", drawBg);
+
+      // Scroll reveal
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 70);
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+      // Form submit
+      function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector("button");
+        btn.textContent = "✓ Enquiry Sent!";
+        btn.style.background = "var(--forest-mid)";
+        setTimeout(() => {
+          btn.textContent = "Send Enquiry";
+          btn.style.background = "";
+          e.target.reset();
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
