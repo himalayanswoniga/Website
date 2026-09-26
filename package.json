@@ -1,0 +1,20 @@
+{
+  "name": "himalayan-swoniga-harvest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Monorepo root: builds the Vite frontend and bundles the Express API as a Netlify Function.",
+  "scripts": {
+    "build": "npm --prefix backend ci && npm --prefix frontend ci && npm --prefix frontend run build",
+    "test": "npm --prefix backend test && npm --prefix frontend test",
+    "dev:api": "npm --prefix backend run dev",
+    "dev:web": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run seed"
+  },
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -32,8 +32,8 @@ the public site keeps the original look, palette, type, and animations.
 | Image uploads | Cloudinary (free tier) |
 | Rich text editor | TipTap (React 19-compatible; react-quill was ruled out — unmaintained, breaks on modern React) |
 | Testing | Vitest everywhere — React Testing Library on the frontend, Supertest + mongodb-memory-server on the backend |
-| Frontend hosting | Netlify (free tier) |
-| Backend hosting | Render (free tier) |
+| Hosting | Netlify (free tier) — static site and the Express API as one Netlify Function, same origin |
+| Alternative API hosting | Render (free tier) — `backend/render.yaml` blueprint, if you prefer a long-running server |
 
 **Design decision — CSS.** The original static site's hand-written CSS (custom properties for the
 palette, layout, animations) was ported almost verbatim into `frontend/src/styles/legacy.css` and is
@@ -59,14 +59,19 @@ frontend/
     styles/       legacy.css (ported original stylesheet)
   public/legacy/  logo.png and the original about-section photo, extracted from the static site
 
+netlify/
+  functions/      api.mjs — wraps the Express app as a same-origin serverless function
+
 backend/
-  config/         db.js (Mongoose connect), cloudinary.js
+  config/         db.js (Mongoose connect + cached serverless connect), cloudinary.js
   models/         User, Product, Category, Blog, Gallery, Team, Testimonial, ContactMessage, SiteSettings
   middleware/     auth, errorHandler, rateLimiter, upload (multer), validateRequest
   controllers/    one per resource
   routes/         one per resource, mounted under /api/v1
   utils/          asyncHandler, ApiError, crudFactory, paginate, slugify, cloudinaryUpload, ...
   seed/           seedData.js + seed.js — migrates the original static content into MongoDB
+                  seedContentRouter.js — read-only API over that same content, served when
+                  MONGO_URI is unset so the storefront works before the DB exists
   tests/          Vitest + Supertest, run against an in-memory MongoDB
 ```
 
@@ -118,19 +123,24 @@ admin panel, using the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `backend/.env
 
 | Variable | Purpose |
 |---|---|
-| `VITE_API_BASE_URL` | Base URL of the backend API, **including** `/api/v1`. Unset locally; **required** for any deployed build. |
+| `VITE_API_BASE_URL` | Only for a **separately hosted** API. Leave unset on Netlify — the bundled function serves `/api/v1` on the site's own origin. |
 | `DEV_API_PROXY` | Dev-server proxy target, default `http://localhost:5000`. Local only. |
 
 **Local vs. Netlify env vars:** `frontend/.env` is only read by Vite during local `npm run dev` /
-`npm run build`. It is never deployed. On Netlify, set `VITE_API_BASE_URL` (your Render URL +
-`/api/v1`) under **Site settings → Environment variables**, then trigger a deploy — Vite bakes the
-value into the bundle at build time, so changing it on Netlify always requires a redeploy.
+`npm run build`; it is never deployed. Anything the deployed site needs belongs under **Site
+settings → Environment variables** on Netlify. Note that `VITE_*` values are baked into the bundle
+at build time, so changing one there always requires a redeploy — unlike the backend's `MONGO_URI`
+and `CLOUDINARY_*`, which the function reads at runtime.
 
-**The build refuses to ship an unreachable API URL.** `vite build` fails unless `VITE_API_BASE_URL`
-is an `https://` URL ending in `/api/v1`. This exists because the value is inlined at build time: with
-it unset, the old fallback quietly produced a production bundle that called `http://localhost:5000`,
-so every visitor got `Network Error`. To build against a local API on purpose, use
-`ALLOW_LOCAL_API_BUILD=1 npm run build`.
+**The build refuses to ship an unreachable API URL.** `vite build` accepts exactly two valid
+configurations: `VITE_API_BASE_URL` unset with `netlify/functions/api.mjs` present (same-origin API),
+or `VITE_API_BASE_URL` set to an `https://` URL ending in `/api/v1` (separate API host). Anything else
+fails the build with an explanation.
+
+This exists because the value is inlined at build time. With it unset, the old fallback quietly
+produced a production bundle that called `http://localhost:5000`, so every visitor got
+`Network Error` and nothing in the build output said so. To build against a local API on purpose,
+use `ALLOW_LOCAL_API_BUILD=1 npm run build`.
 
 ## Seeding the Database
 
@@ -182,63 +192,87 @@ avatar, `settings/about-image`) accept `multipart/form-data`; every other write 
 
 ## Deployment
 
-### Database — MongoDB Atlas
+The site and its API deploy together to Netlify from a single `git push`: the Vite build
+produces `frontend/dist`, and `netlify/functions/api.mjs` wraps the same Express app in
+`backend/` as a serverless function mounted on the site's own origin.
 
-1. Create a free M0 cluster.
+Because the API answers on the same origin as the pages, there is no separate API host to
+manage, no CORS allowlist to keep in sync, and no `VITE_API_BASE_URL` to set — the frontend
+just calls the relative `/api/v1`.
+
+### Going live without a database yet
+
+The function checks for `MONGO_URI` at startup. If it is missing, it serves
+`backend/seed/seedContentRouter.js` instead of the database-backed routes: a read-only API
+returning the same content `npm run seed` would load, in the same response envelope.
+
+That means **the public storefront works on a fresh deploy with zero configuration.** Products,
+categories, testimonials and every homepage section render from the built-in content. What
+stays disabled until a database exists:
+
+| Feature | Behaviour without `MONGO_URI` |
+|---|---|
+| Public storefront | Fully working, from built-in content |
+| Gallery / Blog / Team | Empty-state pages (nothing was ever seeded for them) |
+| Contact form | `503` telling the visitor to email or call instead |
+| Admin panel | `503` on login — content is read-only until the DB is wired up |
+
+`GET /health` reports which mode it is in, and every response carries an `X-Data-Source`
+header of `seed` or `database`:
+
+```bash
+curl https://himalayanswonigaharvest.com/health
+# {"success":true,"message":"API is running","dataSource":"seed"}
+```
+
+### Netlify setup
+
+1. **Set the site's Base directory to empty (the repo root).** Site settings → Build & deploy
+   → Build settings. This is the one manual step — `netlify.toml` lives at the repo root now,
+   and Netlify only reads the one inside the base directory. Everything else comes from that
+   file: build command, publish directory, functions directory, and the `/api/*` rewrite.
+2. Production branch: whichever branch you deploy from. Deploy previews work automatically.
+3. Push. The build runs `npm run build` at the root, which installs both workspaces and
+   builds the frontend; Netlify then bundles `netlify/functions/api.mjs` with esbuild.
+
+### Adding the database — MongoDB Atlas
+
+1. Create a free M0 cluster at [mongodb.com/atlas](https://www.mongodb.com/atlas).
 2. Add a database user and password.
-3. Under Network Access, allow access from anywhere (`0.0.0.0/0`) — Render's free tier has no fixed IP.
-4. Copy the connection string into `MONGO_URI`.
+3. Under Network Access, allow access from anywhere (`0.0.0.0/0`) — serverless functions have
+   no fixed IP.
+4. Put the connection string in `backend/.env` locally and run `npm run seed` once to populate
+   the cluster and create the first admin user.
+5. Add `MONGO_URI`, `JWT_SECRET` and the three `CLOUDINARY_*` values under **Site settings →
+   Environment variables** on Netlify, then redeploy.
+6. Confirm the switch: `curl https://<your-site>/health` should now report
+   `"dataSource":"database"`.
 
-### Backend — Render
+Nothing in the frontend changes between the two modes — the same deploy serves seed content
+before step 5 and live content after it.
 
-1. New **Web Service**, point it at this repo, root directory `backend`.
-2. Build command: `npm install`. Start command: `npm start`.
-3. Add all the `backend/.env` variables in Render's dashboard (a `backend/render.yaml` blueprint is
-   included if you prefer `render blueprint` deploys).
-4. After the first deploy, run `npm run seed` **once** — either via Render's shell, or by running it
-   locally with `MONGO_URI` pointed at the Atlas cluster.
+### Alternative: a long-running API on Render
 
-**Cold starts:** Render's free tier spins the service down after ~15 minutes of inactivity. The first
-request after that takes 30–60s to wake it back up (subsequent requests are fast). This is expected —
-either accept the delay, or set up a free uptime pinger (e.g. UptimeRobot hitting `/health` every 10
-minutes) to keep it warm during business hours.
+`backend/render.yaml` is still included if you would rather run the API as a normal server:
+root directory `backend`, build `npm install`, start `npm start`. In that setup you must also:
 
-### Frontend — Netlify
-
-1. New site from Git, root directory `frontend`.
-2. Build command `npm run build`, publish directory `dist` — already set in `frontend/netlify.toml`.
-3. SPA fallback for React Router is handled two ways (belt-and-suspenders): the `[[redirects]]` rule
-   in `netlify.toml` and `frontend/public/_redirects`. Either alone is sufficient; both are included.
-4. Set `VITE_API_BASE_URL` under **Site settings → Environment variables** to your Render URL +
-   `/api/v1`, then **Clear cache and deploy site**. The build fails with an explanatory error if this
-   is missing, http-only, or pointed at localhost — that check is the safety net for this exact step.
-5. **Production branch:** `main`. Netlify's deploy previews work automatically for pull requests once
-   the site is linked to the repo — no extra config needed beyond the `[context.deploy-preview]` block
-   already in `netlify.toml`.
-
-### CORS
-
-`CLIENT_ORIGINS` on the backend must list every origin the site is served from — the custom domain,
-its `www` variant if you use one, the `*.netlify.app` URL, and `http://localhost:5173` for local dev:
-
-```
-CLIENT_ORIGINS=https://himalayanswonigaharvest.com,https://www.himalayanswonigaharvest.com,http://localhost:5173
-```
-
-Trailing slashes and casing are normalised, so only the scheme and host have to match. An origin that
-is not listed gets a `403` with the offending origin named in the message. Redeploy the backend
-whenever the domain changes.
+- set `CLIENT_ORIGINS` on Render to every origin the site is served from, comma-separated:
+  `https://himalayanswonigaharvest.com,https://www.himalayanswonigaharvest.com,http://localhost:5173`
+  (trailing slashes and casing are normalised; an unlisted origin gets a `403` naming itself)
+- set `VITE_API_BASE_URL` on Netlify to `https://<service>.onrender.com/api/v1` and redeploy
+  with the cache cleared
+- accept that Render's free tier sleeps after ~15 minutes idle, so the first request after a
+  quiet period takes 30–60s (an UptimeRobot ping on `/health` keeps it warm)
 
 ### Deployment checklist
 
-Work through these in order — steps 1-3 must be done before step 4 produces a working site:
+1. Netlify Base directory is empty, so the root `netlify.toml` is the one in effect.
+2. `curl https://<your-site>/health` returns `success: true` and the `dataSource` you expect.
+3. `curl https://<your-site>/api/v1/settings` returns JSON, not HTML. HTML means the `/api/*`
+   rewrite is not active and the SPA fallback swallowed the request.
+4. The browser network tab shows requests to your own domain, never `localhost`.
+5. Once Atlas is wired up: `dataSource` reads `database`, and admin login works.
 
-1. Render service is live: `curl https://<service>.onrender.com/health` returns `{"success":true,...}`.
-2. `npm run seed` has been run once against the production `MONGO_URI`. Without it the homepage has no
-   settings document to render and stays on the error state even with a healthy API.
-3. `CLIENT_ORIGINS` on Render lists the production domain(s).
-4. `VITE_API_BASE_URL` is set on Netlify and the site has been redeployed **with the cache cleared**.
-5. Open the site and confirm the network tab shows requests to your Render host, not `localhost`.
 
 ## Security Notes
 

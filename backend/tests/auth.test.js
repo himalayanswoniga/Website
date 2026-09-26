@@ -1,7 +1,10 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { useTestDatabase } from './setup.js';
 import request from 'supertest';
 import app from '../app.js';
 import User from '../models/User.js';
+
+useTestDatabase();
 
 describe('Auth', () => {
   beforeEach(async () => {

@@ -15,7 +15,8 @@ export default function Products() {
   const [category, setCategory] = useState('');
   const [search, setSearch] = useState('');
 
-  const { data: categories } = useFetch(() => categoryService.list({ all: 'true' }), []);
+  // list() resolves to { data, meta }; the select needs the array, not the envelope.
+  const { data: categories } = useFetch(() => categoryService.list({ limit: 100 }).then((r) => r.data), []);
   const { items, meta, loading, error, reload } = usePaginatedFetch(
     productService.list,
     { page, limit: 9, category: category || undefined, search: search || undefined },

@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { useTestDatabase } from './setup.js';
 import request from 'supertest';
 import app from '../app.js';
 import User from '../models/User.js';
@@ -9,6 +10,8 @@ async function getToken() {
   const res = await request(app).post('/api/v1/auth/login').send({ email: 'admin@test.com', password: 'testpassword123' });
   return res.body.data.token;
 }
+
+useTestDatabase();
 
 describe('Products API', () => {
   it('lists products with pagination metadata', async () => {
