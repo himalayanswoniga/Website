@@ -137,8 +137,8 @@ export const siteSettings = {
   contactInfo: {
     address: 'Kathmandu, Nepal',
     phone: '+977 9802311111',
-    email: 'info@himalayaswonigaharvest.com',
-    website: 'himalayaswonigaharvest.com',
+    email: 'info@himalayanswonigaharvest.com',
+    website: 'himalayanswonigaharvest.com',
     mapEmbedUrl: '',
     socialLinks: { facebook: '', instagram: '', twitter: '' },
   },
