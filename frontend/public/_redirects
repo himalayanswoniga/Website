@@ -1,5 +1,0 @@
-# Mirrors netlify.toml. Order matters: the API rules must precede the SPA catch-all,
-# or /api/* would be answered with index.html.
-/api/*   /.netlify/functions/api/api/:splat   200
-/health  /.netlify/functions/api/health       200
-/*       /index.html                          200
