@@ -1,0 +1,1699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product — Himalayan Swoniga Harvest</title>
+    <meta
+      name="description"
+      content="Pure Himalayan spice powders from Nepal — sun-dried, fine-milled, zero additives."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --forest: #1b3a28;
+        --forest-mid: #2a5c3f;
+        --forest-light: #3d7a56;
+        --sage: #7a9e7e;
+        --cream: #f5f1ea;
+        --cream2: #ede8de;
+        --parchment: #e8dfc8;
+        --gold: #b8943f;
+        --gold-light: #d4b060;
+        --charcoal: #1a1a18;
+        --text: #2c3b2e;
+        --text-muted: #6b7d6e;
+        --white: #ffffff;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--cream);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        height: 80px;
+        background: rgba(245, 241, 234, 0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(27, 58, 40, 0.1);
+        transition: box-shadow 0.3s;
+      }
+      .navbar.scrolled {
+        box-shadow: 0 2px 24px rgba(27, 58, 40, 0.1);
+      }
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+      }
+      .navbar-logo img {
+        height: 100px;
+        width: auto;
+        display: block;
+        margin: -12px 0;
+      }
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .navbar-nav a {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--forest);
+        transition: color 0.2s;
+      }
+      .navbar-nav a:hover {
+        color: var(--gold);
+      }
+      .nav-btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 0.55rem 1.4rem;
+        transition: background 0.2s !important;
+      }
+      .nav-btn:hover {
+        background: var(--forest-mid) !important;
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--forest);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--cream);
+        z-index: 998;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+      }
+      .mobile-menu.open {
+        display: flex;
+      }
+      .mobile-menu a {
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--forest);
+        font-family: "Cormorant Garamond", serif;
+      }
+      .mobile-menu a:hover {
+        color: var(--gold);
+      }
+      .mobile-menu .m-btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 0.9rem 2.5rem;
+        margin-top: 1rem;
+      }
+      .mobile-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+        color: var(--forest);
+        line-height: 1;
+      }
+
+      /* BUTTONS */
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 0.73rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.9rem 2.2rem;
+        transition: all 0.25s;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        text-align: center;
+      }
+      .btn-dark {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      .btn-dark:hover {
+        background: var(--forest-mid);
+        transform: translateY(-2px);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--forest);
+        border: 1.5px solid var(--forest);
+      }
+      .btn-outline:hover {
+        background: var(--forest);
+        color: var(--cream);
+        transform: translateY(-2px);
+      }
+      .btn:disabled {
+        background: var(--cream2);
+        color: var(--text-muted);
+        border-color: transparent;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* SECTION COMMONS */
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 3.5vw, 3.2rem);
+        font-weight: 600;
+        color: var(--forest);
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+      }
+      .section-title em {
+        font-style: italic;
+      }
+      .rule {
+        width: 48px;
+        height: 2px;
+        background: var(--gold);
+        margin: 1.25rem 0;
+      }
+
+      /* BREADCRUMB */
+      .crumbs {
+        padding: calc(80px + 2.5rem) 5% 0;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+      }
+      .crumbs a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .crumbs a:hover {
+        color: var(--gold);
+      }
+      .crumbs .sep {
+        margin: 0 0.6rem;
+        color: var(--gold);
+      }
+      .crumbs .current {
+        color: var(--forest);
+        font-weight: 500;
+      }
+
+      /* PRODUCT DETAIL */
+      .pd {
+        padding: 2.5rem 5% 6rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: 5rem;
+        align-items: start;
+      }
+      .pd-gallery {
+        position: sticky;
+        top: 110px;
+      }
+      .pd-main {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        background: linear-gradient(160deg, var(--white) 0%, var(--parchment) 100%);
+        border: 1px solid rgba(27, 58, 40, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .pd-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .pd-main .pc-badge {
+        top: 1.25rem;
+        left: 1.25rem;
+      }
+      .pd-thumbs {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .pd-thumb {
+        aspect-ratio: 1 / 1;
+        background: linear-gradient(160deg, var(--cream) 0%, var(--parchment) 100%);
+        border: 1.5px solid rgba(27, 58, 40, 0.08);
+        cursor: pointer;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: border-color 0.2s;
+      }
+      .pd-thumb:hover {
+        border-color: rgba(184, 148, 63, 0.5);
+      }
+      .pd-thumb.active {
+        border-color: var(--gold);
+      }
+      .pd-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* info column */
+      .pd-cat {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .pd-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        font-weight: 600;
+        color: var(--forest);
+        line-height: 1.05;
+        margin: 0.6rem 0 0.9rem;
+      }
+      .pd-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+      .pd-rating a {
+        color: var(--text-muted);
+        text-decoration: underline;
+        text-decoration-color: rgba(184, 148, 63, 0.5);
+        text-underline-offset: 3px;
+      }
+      .pd-rating a:hover {
+        color: var(--gold);
+      }
+      .stars {
+        color: var(--gold);
+        letter-spacing: 0.12em;
+      }
+      .pd-price {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.4rem 0.9rem;
+        margin: 1.6rem 0 0.35rem;
+      }
+      .pd-now {
+        font-size: 1.9rem;
+        font-weight: 600;
+        color: var(--forest);
+      }
+      .pd-was {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        text-decoration: line-through;
+      }
+      .pd-save {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--gold);
+        color: var(--white);
+        padding: 0.3rem 0.6rem;
+        align-self: center;
+      }
+      .pd-tax {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+      }
+      .pd-short {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.9;
+        font-weight: 300;
+        margin: 1.25rem 0 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(27, 58, 40, 0.1);
+      }
+      .pd-label {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--forest);
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .pd-label span {
+        color: var(--text-muted);
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        text-transform: none;
+      }
+      .size-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 1.6rem;
+      }
+      .size-opt {
+        min-width: 72px;
+        padding: 0.7rem 1rem;
+        border: 1.5px solid rgba(27, 58, 40, 0.18);
+        background: var(--white);
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--forest);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .size-opt:hover {
+        border-color: var(--forest);
+      }
+      .size-opt.active {
+        background: var(--forest);
+        border-color: var(--forest);
+        color: var(--cream);
+      }
+      .buy-row {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .qty {
+        display: inline-flex;
+        align-items: stretch;
+        border: 1.5px solid rgba(27, 58, 40, 0.18);
+        background: var(--white);
+      }
+      .qty button {
+        width: 44px;
+        border: none;
+        background: none;
+        font-size: 1.1rem;
+        color: var(--forest);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .qty button:hover {
+        background: var(--cream);
+      }
+      .qty input {
+        width: 44px;
+        border: none;
+        text-align: center;
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--forest);
+        background: transparent;
+        -moz-appearance: textfield;
+      }
+      .qty input::-webkit-inner-spin-button,
+      .qty input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
+      .buy-row .btn-dark {
+        flex: 1;
+        min-width: 180px;
+      }
+      .wa-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        width: 100%;
+        margin-top: 0.75rem;
+      }
+      .ig-note {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-top: 0.6rem;
+        text-align: center;
+      }
+      .ig-note a {
+        color: var(--forest);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .ig-note a:hover {
+        color: var(--gold);
+      }
+      .stock {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        margin-top: 1.1rem;
+        color: var(--forest-light);
+        font-weight: 500;
+      }
+      .stock::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .stock.out {
+        color: #a3503c;
+      }
+      .pd-highlights {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.7rem 1.25rem;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: var(--cream2);
+        border-top: 2px solid var(--gold);
+      }
+      .pd-highlights li {
+        display: flex;
+        gap: 0.6rem;
+        font-size: 0.83rem;
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .pd-highlights li::before {
+        content: "✦";
+        color: var(--gold);
+        font-size: 0.55rem;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .pd-meta {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.55rem 1.5rem;
+        font-size: 0.82rem;
+      }
+      .pd-meta dt {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        padding-top: 2px;
+      }
+      .pd-meta dd {
+        color: var(--text);
+      }
+      .pd-assure {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        background: rgba(27, 58, 40, 0.1);
+        border: 1px solid rgba(27, 58, 40, 0.1);
+        margin-top: 2rem;
+      }
+      .pd-assure div {
+        background: var(--cream);
+        padding: 1.1rem 0.9rem;
+        text-align: center;
+      }
+      .pd-assure .a-icon {
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+      .pd-assure .a-title {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--forest);
+        display: block;
+      }
+      .pd-assure .a-sub {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+        display: block;
+        line-height: 1.5;
+      }
+
+      /* TABS */
+      .pd-tabs-section {
+        background: var(--white);
+        padding: 5rem 5%;
+        border-top: 1px solid rgba(27, 58, 40, 0.08);
+      }
+      .tab-list {
+        display: flex;
+        gap: 2.5rem;
+        border-bottom: 1px solid rgba(27, 58, 40, 0.12);
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .tab-list::-webkit-scrollbar {
+        display: none;
+      }
+      .tab-btn {
+        background: none;
+        border: none;
+        font-family: inherit;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 1rem 0;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        white-space: nowrap;
+        transition: color 0.2s;
+      }
+      .tab-btn:hover {
+        color: var(--forest);
+      }
+      .tab-btn[aria-selected="true"] {
+        color: var(--forest);
+        border-bottom-color: var(--gold);
+      }
+      .tab-panel {
+        padding-top: 3rem;
+        max-width: 880px;
+      }
+      .tab-panel[hidden] {
+        display: none;
+      }
+      .tab-panel h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.6rem;
+        color: var(--forest);
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .tab-panel h4 {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 2rem 0 0.75rem;
+      }
+      .tab-panel p {
+        font-size: 0.93rem;
+        color: var(--text-muted);
+        line-height: 1.9;
+        font-weight: 300;
+        margin-bottom: 1rem;
+      }
+      .tab-panel ul.dot-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .tab-panel ul.dot-list li {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-weight: 300;
+      }
+      .tab-panel ul.dot-list li::before {
+        content: "✦";
+        color: var(--gold);
+        font-size: 0.55rem;
+        margin-top: 6px;
+        flex-shrink: 0;
+      }
+      .nutri {
+        width: 100%;
+        max-width: 480px;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        border-top: 2px solid var(--forest);
+      }
+      .nutri th,
+      .nutri td {
+        text-align: left;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid rgba(27, 58, 40, 0.1);
+      }
+      .nutri th {
+        font-weight: 500;
+        color: var(--text);
+      }
+      .nutri td {
+        text-align: right;
+        color: var(--text-muted);
+      }
+      .note {
+        font-size: 0.75rem !important;
+        font-style: italic;
+        margin-top: 0.75rem;
+      }
+      .steps {
+        list-style: none;
+        counter-reset: step;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .steps li {
+        counter-increment: step;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-weight: 300;
+      }
+      .steps li::before {
+        content: counter(step, decimal-leading-zero);
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--gold);
+        width: 2rem;
+        flex-shrink: 0;
+        line-height: 1.5;
+      }
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .info-card {
+        background: var(--cream);
+        padding: 1.5rem;
+        border-top: 2px solid var(--gold);
+      }
+      .info-card .ic-icon {
+        font-size: 1.4rem;
+        display: block;
+        margin-bottom: 0.6rem;
+      }
+      .info-card strong {
+        display: block;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        color: var(--forest);
+        margin-bottom: 0.35rem;
+      }
+      .info-card span {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-weight: 300;
+      }
+
+      /* reviews */
+      .rv-summary {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(27, 58, 40, 0.1);
+        margin-bottom: 1rem;
+      }
+      .rv-score {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3.6rem;
+        font-weight: 700;
+        color: var(--forest);
+        line-height: 1;
+      }
+      .rv-summary .stars {
+        font-size: 1.1rem;
+        display: block;
+      }
+      .rv-summary small {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+      .rv-summary .btn {
+        margin-left: auto;
+      }
+      .review {
+        padding: 1.6rem 0;
+        border-bottom: 1px solid rgba(27, 58, 40, 0.08);
+      }
+      .review-head {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        margin-bottom: 0.6rem;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--forest);
+        color: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .review-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--forest);
+      }
+      .review-meta {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+      }
+      .verified {
+        color: var(--forest-light);
+        margin-left: 0.4rem;
+      }
+      .review p {
+        margin: 0;
+      }
+
+      /* RELATED — shared product card styles (same as home page) */
+      .related {
+        padding: 6rem 5%;
+        background: var(--cream2);
+      }
+      .shop-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+      .shop-head .section-title {
+        margin-bottom: 0;
+      }
+      .shop-head .rule {
+        margin-bottom: 0;
+      }
+      .shop-link {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--forest);
+        text-decoration: none;
+        border-bottom: 1.5px solid var(--gold);
+        padding-bottom: 4px;
+        transition: color 0.2s;
+      }
+      .shop-link:hover {
+        color: var(--gold);
+      }
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.75rem;
+      }
+      .pc.reveal {
+        opacity: 1;
+      }
+      .pc {
+        background: var(--white);
+        border: 1px solid rgba(27, 58, 40, 0.08);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .pc:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(27, 58, 40, 0.1);
+      }
+      .pc-media {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        background: linear-gradient(160deg, var(--cream) 0%, var(--parchment) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .pc-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .pc:hover .pc-media img,
+      .pc:hover .pouch {
+        transform: scale(1.05);
+      }
+      .pouch {
+        width: 52%;
+        aspect-ratio: 3 / 4;
+        background: linear-gradient(135deg, #c9a878 0%, #b8925e 55%, #a78250 100%);
+        border-radius: 6px 6px 10px 10px;
+        position: relative;
+        box-shadow:
+          0 14px 28px rgba(27, 58, 40, 0.18),
+          inset 0 10px 0 rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 18% 8% 10%;
+        transition: transform 0.5s;
+      }
+      .pouch::before {
+        content: "";
+        position: absolute;
+        top: 9%;
+        left: 8%;
+        right: 8%;
+        height: 2px;
+        background: rgba(0, 0, 0, 0.12);
+      }
+      .pouch-label {
+        width: 100%;
+        background: var(--forest);
+        color: var(--cream);
+        text-align: center;
+        padding: 0.7rem 0.3rem 0.6rem;
+        border-top: 2px solid var(--gold);
+      }
+      .pouch-label .pl-icon {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+      }
+      .pouch-label .pl-name {
+        display: block;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        line-height: 1.1;
+      }
+      .pouch-label .pl-sub {
+        display: block;
+        font-size: 0.42rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-top: 0.3rem;
+      }
+      /* large pouch for the main gallery view */
+      .pd-main .pouch {
+        width: 50%;
+      }
+      .pd-main .pouch-label {
+        padding: 1.4rem 0.6rem 1.2rem;
+      }
+      .pd-main .pouch-label .pl-icon {
+        font-size: 3rem;
+        margin-bottom: 0.7rem;
+      }
+      .pd-main .pouch-label .pl-name {
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+      }
+      .pd-main .pouch-label .pl-sub {
+        font-size: 0.55rem;
+        margin-top: 0.5rem;
+      }
+      .pc-badge {
+        position: absolute;
+        top: 0.9rem;
+        left: 0.9rem;
+        z-index: 2;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.6rem;
+        background: var(--forest);
+        color: var(--cream);
+      }
+      .pc-badge.sale {
+        background: var(--gold);
+        color: var(--white);
+      }
+      .pc-badge.oos {
+        background: var(--charcoal);
+      }
+      .pc-body {
+        padding: 1.25rem 1.25rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .pc-cat {
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--sage);
+        margin-bottom: 0.4rem;
+      }
+      .pc-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--forest);
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+      }
+      .pc-name a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .pc-name a:hover {
+        color: var(--gold);
+      }
+      .pc-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-weight: 300;
+        margin-bottom: 1rem;
+      }
+      .pc-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-bottom: 0.9rem;
+      }
+      .pc-stars {
+        color: var(--gold);
+        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+      }
+      .pc-spacer {
+        flex: 1;
+        min-height: 0.25rem;
+      }
+      .pc-price {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.2rem 0.6rem;
+        margin-top: auto;
+        margin-bottom: 1rem;
+      }
+      .pc-now,
+      .pc-was {
+        white-space: nowrap;
+      }
+      .pc-now {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--forest);
+      }
+      .pc-was {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-decoration: line-through;
+      }
+      .pc-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem 1rem;
+      }
+      .pc.is-oos .pc-media {
+        filter: grayscale(0.6);
+        opacity: 0.75;
+      }
+
+      /* NOT FOUND */
+      .not-found {
+        padding: calc(80px + 8rem) 5% 8rem;
+        text-align: center;
+      }
+      .not-found p {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      /* TOAST */
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 2rem;
+        transform: translate(-50%, calc(100% + 3rem));
+        visibility: hidden;
+        background: var(--forest);
+        color: var(--cream);
+        font-size: 0.82rem;
+        padding: 1rem 1.5rem;
+        border-left: 3px solid var(--gold);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition:
+          transform 0.35s ease,
+          visibility 0.35s;
+        max-width: calc(100% - 32px);
+      }
+      .toast.show {
+        transform: translate(-50%, 0);
+        visibility: visible;
+      }
+
+      /* FOOTER */
+      .footer {
+        background: var(--charcoal);
+        padding: 4.5rem 5% 2rem;
+      }
+      .footer-top {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+        gap: 4rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-brand img {
+        height: 40px;
+        margin-bottom: 1.25rem;
+        filter: brightness(0) invert(1);
+        opacity: 0.75;
+      }
+      .footer-brand p {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 260px;
+      }
+      .footer-col h4 {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.25rem;
+      }
+      .footer-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .footer-col ul li a {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+        font-weight: 300;
+      }
+      .footer-col ul li a:hover {
+        color: var(--gold);
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-bottom p {
+        font-size: 0.73rem;
+        color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        .pd {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 3rem;
+        }
+        .pd-gallery {
+          position: static;
+          max-width: 620px;
+        }
+        .shop-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .footer-top {
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+        }
+      }
+      @media (max-width: 640px) {
+        .navbar-nav {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .crumbs {
+          padding-top: calc(80px + 1.5rem);
+        }
+        .pd {
+          padding: 1.5rem 16px 4rem;
+        }
+        .pd-highlights {
+          grid-template-columns: 1fr;
+        }
+        .pd-assure {
+          grid-template-columns: 1fr;
+        }
+        .pd-assure div {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 0 0.9rem;
+          text-align: left;
+          align-items: center;
+        }
+        .pd-assure .a-icon {
+          grid-row: span 2;
+          margin: 0;
+        }
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+        .tab-list {
+          gap: 1.75rem;
+        }
+        .pd-tabs-section,
+        .related {
+          padding: 4rem 16px;
+        }
+        .rv-summary .btn {
+          margin-left: 0;
+        }
+        .shop-grid {
+          gap: 1rem;
+        }
+        .pc-body {
+          padding: 1rem 0.9rem 1.1rem;
+        }
+        .pc-name {
+          font-size: 1.05rem;
+        }
+        .pc-btn {
+          padding: 0.75rem 0.5rem;
+          font-size: 0.65rem;
+        }
+        .pc-media .pouch {
+          width: 60%;
+          padding: 16% 6% 8%;
+        }
+        .pc-media .pouch-label .pl-name {
+          font-size: 0.7rem;
+        }
+        .pc-media .pouch-label .pl-sub {
+          display: none;
+        }
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 360px) {
+        .shop-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="navbar-logo">
+        <img src="images/logo.png" alt="Himalayan Swoniga Harvest" />
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="index.html#about">Our Story</a></li>
+        <li><a href="index.html#products">Products</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="index.html#packaging">Packaging</a></li>
+        <li><a href="index.html#process">Process</a></li>
+        <li><a href="index.html#values">Values</a></li>
+        <li><a href="index.html#contact" class="nav-btn">Order Now</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" id="mobileClose">✕</button>
+      <a href="index.html#about">Our Story</a>
+      <a href="index.html#products">Products</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#packaging">Packaging</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#values">Values</a>
+      <a href="index.html#contact" class="m-btn">Order Now</a>
+    </div>
+
+    <!-- Filled in by the script below from the static PRODUCTS catalogue -->
+    <main id="app"></main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="Himalayan Swoniga Harvest" />
+          <p>
+            Pure Himalayan spice powders — sun-dried, machine-dried, and
+            fine-milled with zero additives. Est. 2026, Kathmandu, Nepal.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="product.html?id=garlic-powder">Garlic Powder</a></li>
+            <li><a href="product.html?id=ginger-powder">Ginger Powder</a></li>
+            <li><a href="product.html?id=lapsi-powder">Lapsi Powder</a></li>
+            <li><a href="product.html?id=amla-powder">Amla Powder</a></li>
+            <li><a href="product.html?id=apple-slices">Dried Fruit Slices</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="index.html#about">Our Story</a></li>
+            <li><a href="index.html#process">Our Process</a></li>
+            <li><a href="index.html#packaging">Packaging</a></li>
+            <li><a href="index.html#values">Our Values</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="index.html#contact">Get in Touch</a></li>
+            <li><a href="index.html#contact">Bulk Orders</a></li>
+            <!-- EMAIL HIDDEN — remove the comment markers to show it again
+            <li>
+              <a href="mailto:info@himalayaswonigaharvest.com">Email Us</a>
+            </li>
+            -->
+            <li><a href="#">Facebook</a></li>
+            <li><a href="https://www.instagram.com/himalayanswonigaharvest/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2026 Himalayan Swoniga Harvest · Kathmandu, Nepal · All rights
+          reserved.
+        </p>
+        <p>Pure · Natural · Himalayan</p>
+      </div>
+    </footer>
+
+    <!-- All product data lives in products.js -->
+    <script src="products.js"></script>
+    <script>
+      // ------------------------------------------------------------------
+      // HELPERS
+      // ------------------------------------------------------------------
+      const $ = (sel) => document.querySelector(sel);
+      const formatDate = (iso) =>
+        new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+
+      let toastTimer;
+      function toast(msg) {
+        const t = $("#toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+      }
+
+      // ------------------------------------------------------------------
+      // RENDER
+      // ------------------------------------------------------------------
+      const params = new URLSearchParams(location.search);
+      const id = params.get("id") || "lapsi-powder";
+      const product = PRODUCTS[id];
+      const app = $("#app");
+
+      if (!product) {
+        document.title = "Product not found — Himalayan Swoniga Harvest";
+        app.innerHTML = `<section class="not-found">
+            <span class="eyebrow">404</span>
+            <h1 class="section-title">Product <em>not found</em></h1>
+            <p>The product you're looking for doesn't exist or has been removed.</p>
+            <a href="index.html#shop" class="btn btn-dark">Back to Shop</a>
+          </section>`;
+      } else {
+        renderProduct(product);
+      }
+
+      function renderProduct(p) {
+        let variant = p.variants.find((v) => v.size === params.get("size")) || p.variants[0];
+        let view = 0; // index into p.images
+
+        document.title = `${p.name} — Himalayan Swoniga Harvest`;
+        document
+          .querySelector('meta[name="description"]')
+          .setAttribute("content", p.short);
+
+        const hasNutrition = Array.isArray(p.nutrition) && p.nutrition.length;
+
+        app.innerHTML = `
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="index.html">Home</a><span class="sep">/</span>
+            <a href="index.html#shop">Shop</a><span class="sep">/</span>
+            <span>${p.category}</span><span class="sep">/</span>
+            <span class="current">${p.name}</span>
+          </nav>
+
+          <section class="pd">
+            <div class="pd-gallery">
+              <div class="pd-main" id="pdMain"></div>
+              ${
+                p.images.length > 1
+                  ? `<div class="pd-thumbs" aria-label="Product photos">${p.images
+                      .map((src, i) => `<button class="pd-thumb" data-view="${i}" aria-label="Photo ${i + 1}">${productImage(p, src)}</button>`)
+                      .join("")}</div>`
+                  : ""
+              }
+            </div>
+
+            <div class="pd-info">
+              <span class="pd-cat">${p.category}</span>
+              <h1 class="pd-title">${p.name}</h1>
+              <div class="pd-rating">
+                <span class="stars" aria-label="${p.rating} out of 5">${stars(p.rating)}</span>
+                <span>${p.rating.toFixed(1)}</span>
+                <a href="#tabs" data-open-tab="reviews">${p.reviewCount} reviews</a>
+              </div>
+
+              <!-- PRICES HIDDEN — remove the comment markers to show the price again
+              <div class="pd-price" id="pdPrice"></div>
+              <p class="pd-tax">Inclusive of all taxes</p>
+              -->
+
+              <p class="pd-short">${p.short}</p>
+
+              <span class="pd-label">Pack size: <span id="sizeLabel"></span></span>
+              <div class="size-list" id="sizeList">
+                ${p.variants
+                  .map((v) => `<button type="button" class="size-opt" data-size="${v.size}">${v.size}</button>`)
+                  .join("")}
+              </div>
+
+              <span class="pd-label">Quantity</span>
+              <div class="buy-row">
+                <div class="qty">
+                  <button type="button" id="qtyMinus" aria-label="Decrease quantity">−</button>
+                  <input type="number" id="qty" value="1" min="1" max="20" aria-label="Quantity" />
+                  <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
+                </div>
+                <button type="button" class="btn btn-dark" id="addToCart" ${p.inStock ? "" : "disabled"}>
+                  ${p.inStock ? "Add To Cart" : "Out of Stock"}
+                </button>
+              </div>
+              <a class="btn btn-outline wa-btn" href="${instagramDm()}" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                ${p.inStock ? "Order on Instagram" : "Ask on Instagram"}
+              </a>
+              <p class="ig-note">
+                Send a message to
+                <a href="${instagramUrl()}" target="_blank" rel="noopener">@${STORE.instagram}</a>
+                with the product name, pack size and quantity.
+              </p>
+              <p class="stock ${p.inStock ? "" : "out"}">
+                ${p.inStock ? "In stock — ready to ship" : "Out of stock — next harvest coming soon"}
+              </p>
+
+              <ul class="pd-highlights">
+                ${p.highlights.map((h) => `<li>${h}</li>`).join("")}
+              </ul>
+
+              <dl class="pd-meta">
+                <dt>SKU</dt><dd id="pdSku"></dd>
+                <dt>Category</dt><dd>${p.category}</dd>
+                <dt>Origin</dt><dd>${p.origin}</dd>
+                <dt>Process</dt><dd>${p.process}</dd>
+                <dt>Shelf life</dt><dd>${p.shelfLife}</dd>
+              </dl>
+
+              <div class="pd-assure">
+                ${STORE.assurances
+                  .map(
+                    (a) => `<div><span class="a-icon">${a.icon}</span>
+                      <span class="a-title">${a.title}</span>
+                      <span class="a-sub">${a.sub}</span></div>`,
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </section>
+
+          <section class="pd-tabs-section" id="tabs">
+            <div class="tab-list" role="tablist">
+              <button class="tab-btn" role="tab" data-tab="description">Description</button>
+              <button class="tab-btn" role="tab" data-tab="ingredients">Ingredients &amp; Nutrition</button>
+              <button class="tab-btn" role="tab" data-tab="usage">How to Use</button>
+              <button class="tab-btn" role="tab" data-tab="storage">Storage &amp; Shipping</button>
+              <button class="tab-btn" role="tab" data-tab="reviews">Reviews (${p.reviewCount})</button>
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-panel="description">
+              <h3>About ${p.name}</h3>
+              ${p.description.map((d) => `<p>${d}</p>`).join("")}
+              <h4>Why you'll love it</h4>
+              <ul class="dot-list">${p.highlights.map((h) => `<li>${h}</li>`).join("")}</ul>
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-panel="ingredients" hidden>
+              <h3>What's inside</h3>
+              <p>${p.ingredients}</p>
+              <h4>Allergen information</h4>
+              <p>${p.allergens}</p>
+              <h4>Nutrition (typical values per 100g)</h4>
+              ${
+                hasNutrition
+                  ? `<table class="nutri"><tbody>${p.nutrition
+                      .map(([k, val]) => `<tr><th>${k}</th><td>${val}</td></tr>`)
+                      .join("")}</tbody></table>
+                     <p class="note">Values are indicative and may vary naturally between harvests.</p>`
+                  : `<p>Detailed nutrition information for this product is coming soon. Contact us if you need it for wholesale labelling.</p>`
+              }
+              <h4>Free from</h4>
+              <ul class="dot-list">
+                <li>Artificial colours and flavours</li>
+                <li>Preservatives and anti-caking agents</li>
+                <li>Added salt, sugar and fillers</li>
+              </ul>
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-panel="usage" hidden>
+              <h3>How to use</h3>
+              <ol class="steps">${p.usage.map((u) => `<li>${u}</li>`).join("")}</ol>
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-panel="storage" hidden>
+              <h3>Storage &amp; shipping</h3>
+              <div class="info-cards">
+                <div class="info-card"><span class="ic-icon">🏠</span><strong>Storage</strong><span>${p.storage}</span></div>
+                <div class="info-card"><span class="ic-icon">⏳</span><strong>Shelf life</strong><span>${p.shelfLife}. Best-before date is printed on the back of every pouch.</span></div>
+                <div class="info-card"><span class="ic-icon">♻️</span><strong>Packaging</strong><span>Resealable kraft stand-up pouch with zip lock and clear window.</span></div>
+              </div>
+              <h4>Delivery</h4>
+              <ul class="dot-list">
+                ${STORE.assurances.map((a) => `<li>${a.title} — ${a.sub}</li>`).join("")}
+              </ul>
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-panel="reviews" hidden>
+              <div class="rv-summary">
+                <span class="rv-score">${p.rating.toFixed(1)}</span>
+                <div>
+                  <span class="stars">${stars(p.rating)}</span>
+                  <small>Based on ${p.reviewCount} reviews</small>
+                </div>
+                <a href="index.html#contact" class="btn btn-outline">Write a Review</a>
+              </div>
+              ${p.reviews
+                .map(
+                  (r) => `<div class="review">
+                    <div class="review-head">
+                      <span class="avatar">${r.name.charAt(0)}</span>
+                      <div>
+                        <p class="review-name">${r.name}<span class="verified">✓ Verified buyer</span></p>
+                        <p class="review-meta"><span class="stars">${stars(r.rating)}</span> · ${formatDate(r.date)}</p>
+                      </div>
+                    </div>
+                    <p>${r.text}</p>
+                  </div>`,
+                )
+                .join("")}
+            </div>
+          </section>
+
+          <section class="related">
+            <div class="shop-head">
+              <div>
+                <span class="eyebrow">You May Also Like</span>
+                <h2 class="section-title">Related <em>Products</em></h2>
+                <div class="rule"></div>
+              </div>
+              <a href="index.html#popular" class="shop-link">View All Products →</a>
+            </div>
+            <div class="shop-grid">
+              ${relatedProducts(id).map((r) => productCard(r)).join("")}
+            </div>
+          </section>`;
+
+        // --- gallery ---
+        function renderMain() {
+          $("#pdMain").innerHTML = badgeFor(p, variant) + productImage(p, p.images[view], 'loading="eager"');
+          document
+            .querySelectorAll(".pd-thumb")
+            .forEach((t) => t.classList.toggle("active", +t.dataset.view === view));
+        }
+        document.querySelectorAll(".pd-thumb").forEach((t) =>
+          t.addEventListener("click", () => {
+            view = +t.dataset.view;
+            renderMain();
+          }),
+        );
+
+        // --- variant / price ---
+        function renderVariant() {
+          // PRICES HIDDEN — uncomment these lines (and the #pdPrice markup above) to show prices:
+          // const save = variant.was
+          //   ? `<span class="pd-was">${rs(variant.was)}</span><span class="pd-save">Save ${rs(variant.was - variant.price)}</span>`
+          //   : "";
+          // $("#pdPrice").innerHTML = `<span class="pd-now">${rs(variant.price)}</span>${save}`;
+          $("#sizeLabel").textContent = variant.size;
+          $("#pdSku").textContent = `${p.sku}-${variant.size.toUpperCase()}`;
+          document
+            .querySelectorAll(".size-opt")
+            .forEach((b) => b.classList.toggle("active", b.dataset.size === variant.size));
+          renderMain();
+        }
+        document.querySelectorAll(".size-opt").forEach((b) =>
+          b.addEventListener("click", () => {
+            variant = p.variants.find((v) => v.size === b.dataset.size);
+            history.replaceState(null, "", productUrl(id, variant.size));
+            renderVariant();
+          }),
+        );
+
+        // --- quantity ---
+        const qtyInput = $("#qty");
+        const clampQty = (n) => Math.min(20, Math.max(1, parseInt(n, 10) || 1));
+        $("#qtyMinus").addEventListener("click", () => {
+          qtyInput.value = clampQty(qtyInput.value - 1);
+        });
+        $("#qtyPlus").addEventListener("click", () => {
+          qtyInput.value = clampQty(+qtyInput.value + 1);
+        });
+        qtyInput.addEventListener("change", () => {
+          qtyInput.value = clampQty(qtyInput.value);
+        });
+
+        // --- ordering (static: no cart backend) ---
+        $("#addToCart").addEventListener("click", (e) => {
+          const q = clampQty(qtyInput.value);
+          const btn = e.currentTarget;
+          btn.textContent = "✓ Added";
+          btn.style.background = "var(--gold)";
+          toast(`Added ${q} × ${p.name} (${variant.size})`);
+          // PRICES HIDDEN — with prices shown, use this message instead:
+          // toast(`Added ${q} × ${p.name} (${variant.size}) — ${rs(variant.price * q)}`);
+          setTimeout(() => {
+            btn.textContent = "Add To Cart";
+            btn.style.background = "";
+          }, 1800);
+        });
+
+        // --- tabs ---
+        function openTab(name) {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === name));
+          document.querySelectorAll(".tab-panel").forEach((pn) => (pn.hidden = pn.dataset.panel !== name));
+        }
+        document.querySelectorAll(".tab-btn").forEach((b) => b.addEventListener("click", () => openTab(b.dataset.tab)));
+        document.querySelector("[data-open-tab]").addEventListener("click", () => openTab("reviews"));
+        openTab("description");
+
+        // --- related quick add ---
+        bindAddButtons(document.querySelector(".related"));
+
+        renderVariant();
+      }
+
+      // ------------------------------------------------------------------
+      // SHARED UI
+      // ------------------------------------------------------------------
+      const mobileMenu = $("#mobileMenu");
+      $(".hamburger").addEventListener("click", () => mobileMenu.classList.add("open"));
+      $("#mobileClose").addEventListener("click", () => mobileMenu.classList.remove("open"));
+      mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => mobileMenu.classList.remove("open")));
+      window.addEventListener("scroll", () => {
+        $("#navbar").classList.toggle("scrolled", window.scrollY > 20);
+      });
+    </script>
+  </body>
+</html>
