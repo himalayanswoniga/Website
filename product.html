@@ -1637,21 +1637,31 @@
           }),
         );
 
+        const clampQty = (n) => Math.min(20, Math.max(1, parseInt(n, 10) || 1));
+
         // --- variant / price ---
-        function renderVariant() {
-          // Price shows only when this pack size has a price set in products.js.
-          if (variant.price) {
+        // Price shows only when this pack size has a price set in products.js,
+        // and is multiplied by the chosen quantity.
+        function renderPrice() {
+          const price = variantPrice(p, variant);
+          if (price) {
+            const q = clampQty($("#qty").value);
             const save = variant.was
-              ? `<span class="pd-was">${rs(variant.was)}</span><span class="pd-save">Save ${rs(variant.was - variant.price)}</span>`
+              ? `<span class="pd-was">${rs(variant.was * q)}</span><span class="pd-save">Save ${rs((variant.was - price) * q)}</span>`
               : "";
-            $("#pdPrice").innerHTML = `<div class="pd-price"><span class="pd-now">${rs(variant.price)}</span>${save}</div>
-              <p class="pd-tax">Inclusive of all taxes</p>`;
+            const each = q > 1 ? `${rs(price)} × ${q} · ` : "";
+            $("#pdPrice").innerHTML = `<div class="pd-price"><span class="pd-now">${rs(price * q)}</span>${save}</div>
+              <p class="pd-tax">${each}Inclusive of all taxes</p>`;
           } else {
             // only show "Price on request" when some other size of this product has a price
-            $("#pdPrice").innerHTML = p.variants.some((v) => v.price)
+            $("#pdPrice").innerHTML = p.variants.some((v) => variantPrice(p, v))
               ? `<p class="pd-request">Price on request for ${variant.size} — message us on Instagram.</p>`
               : "";
           }
+        }
+
+        function renderVariant() {
+          renderPrice();
           $("#sizeLabel").textContent = variant.size;
           $("#pdSku").textContent = `${p.sku}-${variant.size.toUpperCase()}`;
           document
@@ -1669,15 +1679,18 @@
 
         // --- quantity ---
         const qtyInput = $("#qty");
-        const clampQty = (n) => Math.min(20, Math.max(1, parseInt(n, 10) || 1));
         $("#qtyMinus").addEventListener("click", () => {
           qtyInput.value = clampQty(qtyInput.value - 1);
+          renderPrice();
         });
         $("#qtyPlus").addEventListener("click", () => {
           qtyInput.value = clampQty(+qtyInput.value + 1);
+          renderPrice();
         });
+        qtyInput.addEventListener("input", renderPrice);
         qtyInput.addEventListener("change", () => {
           qtyInput.value = clampQty(qtyInput.value);
+          renderPrice();
         });
 
         // --- ordering (static: no cart backend) ---
@@ -1686,7 +1699,7 @@
           const btn = e.currentTarget;
           btn.textContent = "✓ Added";
           btn.style.background = "var(--gold)";
-          toast(`Added ${q} × ${p.name} (${variant.size})` + (variant.price ? ` — ${rs(variant.price * q)}` : ""));
+          toast(`Added ${q} × ${p.name} (${variant.size})` + (variantPrice(p, variant) ? ` — ${rs(variantPrice(p, variant) * q)}` : ""));
           setTimeout(() => {
             btn.textContent = "Add To Cart";
             btn.style.background = "";
