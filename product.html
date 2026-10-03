@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#1b3a28" />
     <title>Product — Himalayan Swoniga Harvest</title>
     <meta
       name="description"
@@ -82,6 +87,7 @@
         list-style: none;
       }
       .navbar-nav a {
+        white-space: nowrap;
         font-size: 0.7rem;
         font-weight: 600;
         letter-spacing: 0.08em;
@@ -384,6 +390,12 @@
       .pd-tax {
         font-size: 0.72rem;
         color: var(--text-muted);
+      }
+      .pd-request {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-top: 1.25rem;
       }
       .pd-short {
         font-size: 0.95rem;
@@ -1182,6 +1194,15 @@
       }
 
       /* RESPONSIVE */
+      /* switch to the hamburger menu before the header links run out of room */
+      @media (max-width: 1200px) {
+        .navbar-nav {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+      }
       @media (max-width: 1024px) {
         .pd {
           grid-template-columns: minmax(0, 1fr);
@@ -1289,6 +1310,7 @@
         <li><a href="index.html#packaging">Packaging</a></li>
         <li><a href="index.html#process">Process</a></li>
         <li><a href="index.html#values">Values</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
         <li><a href="index.html#contact" class="nav-btn">Order Now</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu">
@@ -1305,6 +1327,7 @@
       <a href="index.html#packaging">Packaging</a>
       <a href="index.html#process">Process</a>
       <a href="index.html#values">Values</a>
+      <a href="index.html#contact">Contact Us</a>
       <a href="index.html#contact" class="m-btn">Order Now</a>
     </div>
 
@@ -1445,10 +1468,7 @@
                 <a href="#tabs" data-open-tab="reviews">${p.reviewCount} reviews</a>
               </div>
 
-              <!-- PRICES HIDDEN — remove the comment markers to show the price again
-              <div class="pd-price" id="pdPrice"></div>
-              <p class="pd-tax">Inclusive of all taxes</p>
-              -->
+              <div id="pdPrice"></div>
 
               <p class="pd-short">${p.short}</p>
 
@@ -1619,11 +1639,19 @@
 
         // --- variant / price ---
         function renderVariant() {
-          // PRICES HIDDEN — uncomment these lines (and the #pdPrice markup above) to show prices:
-          // const save = variant.was
-          //   ? `<span class="pd-was">${rs(variant.was)}</span><span class="pd-save">Save ${rs(variant.was - variant.price)}</span>`
-          //   : "";
-          // $("#pdPrice").innerHTML = `<span class="pd-now">${rs(variant.price)}</span>${save}`;
+          // Price shows only when this pack size has a price set in products.js.
+          if (variant.price) {
+            const save = variant.was
+              ? `<span class="pd-was">${rs(variant.was)}</span><span class="pd-save">Save ${rs(variant.was - variant.price)}</span>`
+              : "";
+            $("#pdPrice").innerHTML = `<div class="pd-price"><span class="pd-now">${rs(variant.price)}</span>${save}</div>
+              <p class="pd-tax">Inclusive of all taxes</p>`;
+          } else {
+            // only show "Price on request" when some other size of this product has a price
+            $("#pdPrice").innerHTML = p.variants.some((v) => v.price)
+              ? `<p class="pd-request">Price on request for ${variant.size} — message us on Instagram.</p>`
+              : "";
+          }
           $("#sizeLabel").textContent = variant.size;
           $("#pdSku").textContent = `${p.sku}-${variant.size.toUpperCase()}`;
           document
@@ -1658,9 +1686,7 @@
           const btn = e.currentTarget;
           btn.textContent = "✓ Added";
           btn.style.background = "var(--gold)";
-          toast(`Added ${q} × ${p.name} (${variant.size})`);
-          // PRICES HIDDEN — with prices shown, use this message instead:
-          // toast(`Added ${q} × ${p.name} (${variant.size}) — ${rs(variant.price * q)}`);
+          toast(`Added ${q} × ${p.name} (${variant.size})` + (variant.price ? ` — ${rs(variant.price * q)}` : ""));
           setTimeout(() => {
             btn.textContent = "Add To Cart";
             btn.style.background = "";

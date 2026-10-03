@@ -1,0 +1,6 @@
+# Netlify config (kept local)
+netlify.toml
+
+# Local image tools
+optimize-images.py
+update-images.bat

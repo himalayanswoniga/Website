@@ -26,7 +26,10 @@
 // Which products appear on the home page, in order.
 // The first FEATURED product is shown as the large card.
 const FEATURED = ["lapsi-powder", "garlic-powder", "beetroot-powder", "apple-slices", "orange-slices"];
-const POPULAR = ["ginger-powder", "amla-powder", "orange-powder", "garlic-powder"];
+const POPULAR = [
+  "lemon-powder", "lemon-slices", "ginger-powder", "amla-powder",
+  "orange-powder", "garlic-powder", "lapsi-powder", "beetroot-powder",
+];
 
 // Shop-wide settings — edit to match your real policies.
 const STORE = {
@@ -39,9 +42,10 @@ const STORE = {
   ],
 };
 
-// PRICES ARE HIDDEN on the site for now (see "PRICES HIDDEN" comments below and in
-// product.html). Keep them up to date here so they're ready when you switch them back on.
-// `was` = original price when on sale (shows a discount badge).
+// PRICES: add  price: 325  to a pack size to show its price on the product detail
+// page. Leave price out and that pack size shows no price. (Product cards on the
+// home page never show prices — see SHOW_PRICE_ON_CARDS below.)
+// `was` = original price when on sale (shows a sale badge and the old price crossed out).
 // `nutrition` = typical values per 100g — leave it out if you don't have verified figures.
 // Reviews are SAMPLE content — replace with real customer reviews before launch.
 const PRODUCTS = {
@@ -56,8 +60,8 @@ const PRODUCTS = {
     reviewCount: 32,
     inStock: true,
     variants: [
-      { size: "100g", price: 350 },
-      { size: "250g", price: 820 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Nepal's beloved hog plum — naturally tangy, sun-dried and finely milled. Perfect for achar, chutney and refreshing drinks.",
@@ -101,8 +105,8 @@ const PRODUCTS = {
     reviewCount: 41,
     inStock: true,
     variants: [
-      { size: "100g", price: 280, was: 320 },
-      { size: "250g", price: 620, was: 700 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Intensely aromatic Himalayan garlic — dried and finely milled. No salt, no fillers, just pure garlic.",
@@ -153,8 +157,8 @@ const PRODUCTS = {
     reviewCount: 27,
     inStock: true,
     variants: [
-      { size: "100g", price: 260 },
-      { size: "250g", price: 580 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Warm, spicy highland ginger — dual-dried for consistent flavour. Perfect for cooking, tea and baking.",
@@ -204,8 +208,8 @@ const PRODUCTS = {
     reviewCount: 16,
     inStock: true,
     variants: [
-      { size: "100g", price: 290 },
-      { size: "250g", price: 680 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Tangy Indian gooseberry, dried and milled into a fine powder — a traditional daily wellness staple.",
@@ -246,8 +250,8 @@ const PRODUCTS = {
     reviewCount: 19,
     inStock: true,
     variants: [
-      { size: "100g", price: 320 },
-      { size: "250g", price: 750 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Deep ruby-red beetroot powder with an earthy sweetness — for smoothies, baking and natural food colour.",
@@ -289,8 +293,8 @@ const PRODUCTS = {
     reviewCount: 14,
     inStock: true,
     variants: [
-      { size: "100g", price: 340 },
-      { size: "250g", price: 800 },
+      { size: "100g", price: 325 },
+      { size: "250g" },
     ],
     short:
       "Bright, zesty Nepali orange dried into a fine powder — for drinks, baking and desserts.",
@@ -331,8 +335,8 @@ const PRODUCTS = {
     reviewCount: 23,
     inStock: true,
     variants: [
-      { size: "100g", price: 300, was: 340 },
-      { size: "250g", price: 700 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Crisp, naturally sweet dried apple rings from Himalayan orchards — a wholesome snack with nothing added.",
@@ -374,8 +378,8 @@ const PRODUCTS = {
     reviewCount: 18,
     inStock: true,
     variants: [
-      { size: "100g", price: 320 },
-      { size: "250g", price: 760 },
+      { size: "100g" },
+      { size: "250g" },
     ],
     short:
       "Beautiful dried orange wheels — for tea, drinks, baking and garnish. Bright colour, real citrus aroma.",
@@ -406,6 +410,94 @@ const PRODUCTS = {
       { name: "Ashok P.", rating: 4, date: "2026-08-11", text: "Good aroma. Nice for gifting too." },
     ],
   },
+
+  "lemon-powder": {
+    name: "Lemon Powder",
+    category: "Fruit Powder",
+    icon: "🍋",
+    images: ["images/products/lemon_powder.jpg"],
+    badge: "New",
+    sku: "HSH-LMP",
+    rating: 4.7,
+    reviewCount: 12,
+    inStock: true,
+    variants: [
+      { size: "100g", price: 250 },
+      { size: "250g" },
+    ],
+    short:
+      "Sharp, fresh lemon dried into a fine powder — instant citrus tang for drinks, cooking and baking.",
+    description: [
+      "Ripe lemons are washed, sliced and dried, then milled into a pale-yellow powder that keeps the bright, sour flavour and fresh aroma of the fruit.",
+      "Keep a pouch in the kitchen for whenever a recipe needs a squeeze of lemon — no fresh fruit, no waste.",
+    ],
+    highlights: [
+      "Bright, natural lemon flavour",
+      "Instant tang — no squeezing",
+      "Great for drinks, cooking and baking",
+      "No sugar or preservatives",
+    ],
+    ingredients: "100% dehydrated lemon.",
+    allergens: "None. Packed in a facility that handles other spices and fruit powders.",
+    usage: [
+      "Stir ½–1 tsp into water or soda with honey for quick lemonade.",
+      "Sprinkle over salads, chaat, grilled meat and fish.",
+      "Add to marinades, dressings and dips in place of lemon juice.",
+      "Mix into cake, cookie and icing recipes for lemon flavour.",
+    ],
+    storage: "Store airtight in a cool, dry place. Use a dry spoon — fruit powders absorb moisture easily.",
+    shelfLife: "12 months from packing",
+    origin: "Nepal",
+    process: "Dried, fine-milled",
+    reviews: [
+      { name: "Nisha T.", rating: 5, date: "2026-09-20", text: "So handy for lemonade and salads. Very fresh smell." },
+      { name: "Sudip M.", rating: 4, date: "2026-09-14", text: "Nice and tangy. Great for marinades." },
+    ],
+  },
+
+  "lemon-slices": {
+    name: "Lemon Slices",
+    category: "Dried Fruit",
+    icon: "🍋",
+    images: ["images/products/lemon_slices.jpg"],
+    badge: "New",
+    sku: "HSH-LMS",
+    rating: 4.8,
+    reviewCount: 10,
+    inStock: true,
+    variants: [
+      { size: "100g" },
+      { size: "250g" },
+    ],
+    short:
+      "Golden dried lemon wheels — perfect for tea, drinks, baking and garnish, with a fresh citrus aroma.",
+    description: [
+      "Whole lemons are thinly sliced into wheels and slowly dried so they keep their sunny colour and fragrant peel.",
+      "Drop a slice into hot tea or cold drinks, use them to decorate cakes and desserts, or add them to homemade spice and tea blends.",
+    ],
+    highlights: [
+      "Whole wheels with peel",
+      "Fresh citrus aroma",
+      "Perfect for tea and garnish",
+      "No sugar or preservatives",
+    ],
+    ingredients: "100% lemon.",
+    allergens: "None. Packed in a facility that handles other spices and fruit powders.",
+    usage: [
+      "Add a slice to black tea, green tea or hot water with honey.",
+      "Garnish lemonade, mocktails and cold drinks.",
+      "Decorate cakes, tarts and dessert platters.",
+      "Blend into homemade herbal tea mixes.",
+    ],
+    storage: "Keep sealed in a cool, dry place away from sunlight.",
+    shelfLife: "9 months from packing",
+    origin: "Nepal",
+    process: "Sliced, slow-dried",
+    reviews: [
+      { name: "Kabita R.", rating: 5, date: "2026-09-18", text: "Lovely in my evening tea with honey." },
+      { name: "Aman J.", rating: 5, date: "2026-09-09", text: "They look beautiful as cake decoration." },
+    ],
+  },
 };
 
 /* =====================================================================
@@ -431,8 +523,7 @@ function productImage(p, src, extraAttrs = "") {
 
 function badgeFor(p, v) {
   if (!p.inStock) return `<span class="pc-badge oos">Sold Out</span>`;
-  // PRICES HIDDEN — uncomment to show the sale "-13%" badge again:
-  // if (v.was) return `<span class="pc-badge sale">-${Math.round((1 - v.price / v.was) * 100)}%</span>`;
+  if (v.price && v.was) return `<span class="pc-badge sale">-${Math.round((1 - v.price / v.was) * 100)}%</span>`;
   if (p.badge) return `<span class="pc-badge">${p.badge}</span>`;
   return "";
 }
@@ -444,9 +535,12 @@ function productCard(id, { hero = false } = {}) {
   const v = p.variants[0];
   const url = productUrl(id);
 
-  // PRICES HIDDEN — to show prices again, swap these two lines:
-  const priceHtml = `<div class="pc-spacer"></div>`;
-  // const priceHtml = `<div class="pc-price"><span class="pc-now">${rs(v.price)}</span>${v.was ? `<span class="pc-was">${rs(v.was)}</span>` : ""}</div>`;
+  // Cards don't show prices — prices appear only on the product detail page.
+  // To show them on cards too, set SHOW_PRICE_ON_CARDS to true.
+  const SHOW_PRICE_ON_CARDS = false;
+  const priceHtml = SHOW_PRICE_ON_CARDS && v.price
+    ? `<div class="pc-price"><span class="pc-now">${rs(v.price)}</span>${v.was ? `<span class="pc-was">${rs(v.was)}</span>` : ""}</div>`
+    : `<div class="pc-spacer"></div>`;
 
   return `<article class="pc reveal${hero ? " hero-pc" : ""}${p.inStock ? "" : " is-oos"}">
       <a class="pc-media" href="${url}">${badgeFor(p, v)}${productImage(p)}</a>
