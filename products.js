@@ -42,8 +42,10 @@ const STORE = {
   ],
 };
 
-// PRICES: add  price: 325  to a pack size to show its price on the product detail
-// page. Leave price out and that pack size shows no price. (Product cards on the
+// PRICES: add  price: 325  to the 100g pack to show the price on the product detail
+// page. Other pack sizes are priced automatically by weight from it (200g = 2 × 100g
+// price) — or give a pack its own  price:  to override that (e.g. a bulk discount).
+// A product with no price set anywhere shows no price. (Product cards on the
 // home page never show prices — see SHOW_PRICE_ON_CARDS below.)
 // `was` = original price when on sale (shows a sale badge and the old price crossed out).
 // `nutrition` = typical values per 100g — leave it out if you don't have verified figures.
@@ -61,7 +63,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Nepal's beloved hog plum — naturally tangy, sun-dried and finely milled. Perfect for achar, chutney and refreshing drinks.",
@@ -106,7 +108,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Intensely aromatic Himalayan garlic — dried and finely milled. No salt, no fillers, just pure garlic.",
@@ -158,7 +160,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Warm, spicy highland ginger — dual-dried for consistent flavour. Perfect for cooking, tea and baking.",
@@ -209,7 +211,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Tangy Indian gooseberry, dried and milled into a fine powder — a traditional daily wellness staple.",
@@ -251,7 +253,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Deep ruby-red beetroot powder with an earthy sweetness — for smoothies, baking and natural food colour.",
@@ -294,7 +296,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g", price: 325 },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Bright, zesty Nepali orange dried into a fine powder — for drinks, baking and desserts.",
@@ -336,7 +338,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Crisp, naturally sweet dried apple rings from Himalayan orchards — a wholesome snack with nothing added.",
@@ -379,7 +381,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Beautiful dried orange wheels — for tea, drinks, baking and garnish. Bright colour, real citrus aroma.",
@@ -423,7 +425,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g", price: 250 },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Sharp, fresh lemon dried into a fine powder — instant citrus tang for drinks, cooking and baking.",
@@ -467,7 +469,7 @@ const PRODUCTS = {
     inStock: true,
     variants: [
       { size: "100g" },
-      { size: "250g" },
+      { size: "200g" },
     ],
     short:
       "Golden dried lemon wheels — perfect for tea, drinks, baking and garnish, with a fresh citrus aroma.",
@@ -521,6 +523,22 @@ function productImage(p, src, extraAttrs = "") {
     onerror="this.outerHTML=this.dataset.fallback" data-fallback='${fallback.replace(/'/g, "&#39;")}' />`;
 }
 
+// Weight in grams from a size label like "100g" or "1kg".
+function sizeInGrams(size) {
+  const m = /([\d.]+)\s*(kg|g)\b/i.exec(size);
+  return m ? parseFloat(m[1]) * (m[2].toLowerCase() === "kg" ? 1000 : 1) : null;
+}
+
+// Price of one pack: its own price if set, otherwise worked out by weight
+// from a pack size that has a price. Returns null when there is no price.
+function variantPrice(p, v) {
+  if (v.price) return v.price;
+  const base = p.variants.find((x) => x.price);
+  const g = sizeInGrams(v.size);
+  const baseG = base && sizeInGrams(base.size);
+  return base && g && baseG ? Math.round((base.price * g) / baseG) : null;
+}
+
 function badgeFor(p, v) {
   if (!p.inStock) return `<span class="pc-badge oos">Sold Out</span>`;
   if (v.price && v.was) return `<span class="pc-badge sale">-${Math.round((1 - v.price / v.was) * 100)}%</span>`;
@@ -538,8 +556,8 @@ function productCard(id, { hero = false } = {}) {
   // Cards don't show prices — prices appear only on the product detail page.
   // To show them on cards too, set SHOW_PRICE_ON_CARDS to true.
   const SHOW_PRICE_ON_CARDS = false;
-  const priceHtml = SHOW_PRICE_ON_CARDS && v.price
-    ? `<div class="pc-price"><span class="pc-now">${rs(v.price)}</span>${v.was ? `<span class="pc-was">${rs(v.was)}</span>` : ""}</div>`
+  const priceHtml = SHOW_PRICE_ON_CARDS && variantPrice(p, v)
+    ? `<div class="pc-price"><span class="pc-now">${rs(variantPrice(p, v))}</span>${v.was ? `<span class="pc-was">${rs(v.was)}</span>` : ""}</div>`
     : `<div class="pc-spacer"></div>`;
 
   return `<article class="pc reveal${hero ? " hero-pc" : ""}${p.inStock ? "" : " is-oos"}">
