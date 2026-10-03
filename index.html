@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#1b3a28" />
     <title>Himalayan Swoniga Harvest — Pure Mountain Spices from Nepal</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
@@ -78,6 +83,7 @@
         list-style: none;
       }
       .navbar-nav a {
+        white-space: nowrap;
         font-size: 0.7rem;
         font-weight: 600;
         letter-spacing: 0.08em;
@@ -1313,6 +1319,15 @@
       }
 
       /* RESPONSIVE */
+      /* switch to the hamburger menu before the header links run out of room */
+      @media (max-width: 1200px) {
+        .navbar-nav {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+      }
       @media (max-width: 1024px) {
         .hero-deco {
           display: none;
@@ -1390,6 +1405,7 @@
         <li><a href="#packaging">Packaging</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#values">Values</a></li>
+        <li><a href="#contact">Contact Us</a></li>
         <li><a href="#contact" class="nav-btn">Order Now</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu">
@@ -1406,6 +1422,7 @@
       <a href="#packaging" onclick="closeMobile()">Packaging</a>
       <a href="#process" onclick="closeMobile()">Process</a>
       <a href="#values" onclick="closeMobile()">Values</a>
+      <a href="#contact" onclick="closeMobile()">Contact Us</a>
       <a href="#contact" class="m-btn" onclick="closeMobile()">Order Now</a>
     </div>
 
@@ -1432,7 +1449,7 @@
             ><span class="stat-label">Natural</span>
           </div>
           <div>
-            <span class="stat-num">8+</span
+            <span class="stat-num">10+</span
             ><span class="stat-label">Products</span>
           </div>
           <div>
@@ -1596,7 +1613,7 @@
         <div class="prod-card reveal">
           <p class="prod-num">05</p>
           <span class="prod-icon">🍊</span>
-          <h3>Beetroot &amp; Orange Powders</h3>
+          <h3>Beetroot, Orange &amp; Lemon Powders</h3>
           <p>
             Vivid, naturally coloured powders for smoothies, baking and drinks — nothing added.
           </p>
@@ -1607,7 +1624,7 @@
           <span class="prod-icon">🍎</span>
           <h3>Dried Fruit Slices</h3>
           <p>
-            Crisp apple rings and fragrant orange wheels, slow-dried with no added sugar.
+            Crisp apple rings and fragrant orange and lemon wheels, slow-dried with no added sugar.
           </p>
           <span class="prod-tag">Healthy Snack</span>
         </div>
@@ -1853,18 +1870,17 @@
               <div class="ci-box">📍</div>
               <div>
                 <p class="ci-label">Location</p>
-                <p class="ci-val">Kathmandu, Nepal</p>
+                <p class="ci-val">Lalitpur, Nepal</p>
               </div>
             </div>
-            <!-- PHONE HIDDEN — remove the comment markers to show it again
             <div class="ci-item">
               <div class="ci-box">📞</div>
               <div>
                 <p class="ci-label">Phone</p>
-                <p class="ci-val">+977 9802311111</p>
+                <p class="ci-val"><a href="tel:+9779818447750">+977 9818447750</a></p>
+                <p class="ci-val"><a href="tel:+9779843147529">+977 9843147529</a></p>
               </div>
             </div>
-            -->
             <div class="ci-item">
               <div class="ci-box">📸</div>
               <div>
